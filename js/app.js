@@ -1,0 +1,1 @@
+// Kolla upp om det går att gömma browserns meny, sökfält osv i ett popup fönster. Kolla också om det är tillåtet med popuppisar för att göra sin app.
