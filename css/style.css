@@ -1,4 +1,4 @@
-html, body, div, header, nav, main, section, footer {margin: 0; padding: 0;}
+html, head, body, div, header, nav, main, section, footer {margin: 0; padding: 0;}
 header, nav, main, footer, section {display: block;}  /* Detta kanske måste bort om det blir för märkligt. */
 
 head {
@@ -9,8 +9,7 @@ head {
     background-image: url("../image/background.jpg");
     height: 100%;
     width: 100%;
-    margin: 0%;
-    padding: 0%;
+    position: fixed;    /* Fix screen-size to actual screen-size. */
 }
 
 .content {
@@ -31,4 +30,16 @@ footer {
 
 footer h4 {
     margin-right: 10px;
+}
+
+.icons {
+    display: relative;
+    float: left;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.icons p {
+    display: inline;
+    font-weight: bolder;
 }
