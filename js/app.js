@@ -1,3 +1,9 @@
+/**
+ * @author ph222ue - Patrik Hasselblad
+ * @module ./src/js/app.js
+ * @version 1.0
+ */
+
 /* Kolla upp om det går att gömma browserns meny, sökfält osv i ett popup fönster. Kolla också om det är tillåtet med popuppisar för att göra sin app.
 
 ATT GÖRA:
