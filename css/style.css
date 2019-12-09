@@ -6,15 +6,15 @@ head {
 }
 
 .wrapper {
-    background-image: url("../image/background1.jpg");
-    height: fit-content;
+    background-image: url("../image/background.jpg");
+    height: 100%;
     width: 100%;
     margin: 0%;
     padding: 0%;
 }
 
 .content {
-    min-height: calc(100vh - 50px); /* Forces footer down. */
+    min-height: calc(100vh - 65px); /* Forces footer down. */
 }
 
 footer {
@@ -22,13 +22,13 @@ footer {
     text-align: right;
     background-color: #000;
     background-image: url("../image/transFooter.png");
-    height: 50px;
+    height: 65px;
     width: 100%;
-    border-top: 2px solid #000;
+    border-top: 3px solid #000;
     clear: both;
     font-weight: bolder;
 }
 
-footer p {
+footer h4 {
     margin-right: 10px;
 }
