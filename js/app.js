@@ -15,5 +15,8 @@ ATT GÖRA:
 *Gör små ikoner som föreställer chat, memory och klockappen (till att börja med).
 *Ett enkelt litet tillägg kan vara att man kan välja bakgrundsbilder. Det tar vi, inte som den egen definierade appen utan som en grej bara. Kan va roligt.
 Kanske byta "tema", meny å allt annat byter färger osv.
+*Custom elemnts skapas i respektive js fil. Memory i memory.js, learnClock i learnClock.js... inte i New eftersom det bara skapar en ny grund för ett nytt
+knapptryck på respektive ikon. Så att objekten kan fungera separat. Där finns en nöt att knäcka.
+*När man hovrar över ikonerna så tycker jag att vi ska förstora dem en smula, så som i demon. Det ser snyggt ut. Antagligen med eventlisteners.
 
 */
