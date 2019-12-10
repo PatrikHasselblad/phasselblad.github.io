@@ -46,3 +46,8 @@ footer h4 {
     display: inline;
     font-weight: bolder;
 }
+
+/* Random utilities */
+.removed {
+    visibility: hidden;
+}

@@ -6,15 +6,72 @@
 
 /**
 * Function to initialize a new Memory game.
-@param {Object} newMemory - Object with parameters of chosen game size.
+* @param {Object} newMemory - Object with parameters of chosen game size.
 */
 export function memory (newMemory) {
   const rows = newMemory.rows
   const cols = newMemory.cols
   const tiles = getPictureArray(rows, cols)
-  const container = document.querySelector(newMemory.container)
+  let pairs = 0
+  let tries = 0
+  let turn1 = null
+  let turn2 = null
+  let lastTile = null
+  const container = document.querySelector('#content')
+  const template = document.querySelectorAll('#memoryBox')[0].content.firstElementChild
 
-  console.log('syns vi?')
+  tiles.forEach(function (tile, index) {
+    const aTag = document.importNode(template, true)
+    container.appendChild(aTag)
+
+    aTag.addEventListener('click', function (event) {
+      event.preventDefault()
+      const img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
+      turnBrick(tile, img)
+    })
+    if ((index + 1) % cols === 0) {
+      container.appendChild(document.createElement('br'))
+    }
+  })
+
+  function turnBrick (tile, img) {
+    if (turn2) {
+      return
+    }
+    img.src = '../image/' + tile + '.png'
+
+    if (!turn1) {
+      turn1 = img
+      lastTile = tile
+    } else {
+      if (img === turn1) {
+        return
+      }
+      tries += 1
+      turn2 = img
+
+      if (tile === lastTile) {
+        pairs += 1
+
+        if (pairs === (cols * rows) / 2) {
+          console.log('You won with ' + tries + ' number of tries.')
+        }
+
+        window.setTimeout(function () {
+          turn1.parentNode.classList.add('removed')
+          turn2.parentNode.classList.add('removed')
+
+          turn1 = null
+          turn2 = null
+        }, 300)
+      } else {
+        window.setTimeout(function () {
+          turn1.src = '../image/0.png'
+          turn2.src = '../image/0.png'
+        }, 500)
+      }
+    }
+  }
 }
 
 /**
