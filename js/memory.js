@@ -5,9 +5,9 @@
  */
 
 const template = document.createElement('template')
-template.innerHTML = `
- <div class="memoryApp">
-    <a href="#"><img src="/image/0.png" alt="A memory brick"></a>
+template.innerHTML = ` 
+<div class="memoryApp">
+    <a id="aLink" href="#"><img src="/image/0.png" alt="A memory brick"></a>
  </div>
  `
 
@@ -20,7 +20,7 @@ class Memory extends window.HTMLElement {
     super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
-    // this.playMemory(newGame)
+    this.playMemory(newGame)
   }
 
   playMemory (newGame) {
@@ -33,21 +33,24 @@ class Memory extends window.HTMLElement {
     this.turn1 = null
     this.turn2 = null
     this.lastTile = null
-    const container = document.querySelector('#content')
-    const position = document.querySelectorAll('#memoryBox')[0] // .content.firstElementChild
+    const container = document.querySelector('#memoryBox')
+    const position = this.shadowRoot.querySelector('.memoryApp a') // .content.firstElementChild
+    // const position = document.querySelectorAll('.memoryApp')[0] // .content.firstElementChild
+    console.log('cols' + this.cols)
 
     tiles.forEach(function (tile, index) {
       const a = document.importNode(position, true)
       container.appendChild(a)
+      console.log(a)
 
       a.addEventListener('click', function (event) {
         event.preventDefault()
         const img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
         this.turnBrick(tile, img)
       })
-      if ((index + 1) % this.cols === 0) {
-        container.appendChild(document.createElement('br'))
-      }
+    //  if ((index + 1) % this.cols === 0) {
+      //  container.appendChild(document.createElement('br'))
+      // }
     })
   }
 

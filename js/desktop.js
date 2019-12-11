@@ -19,6 +19,7 @@ class Desktop extends window.HTMLElement {
 
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.position = this.shadowRoot.querySelector('.desktop')
   }
 
   connectedCallback () {
@@ -33,8 +34,8 @@ class Desktop extends window.HTMLElement {
 
   playMemory () {
     const newGame = new NewMemory(2, 2)
-    console.log(newGame)
     const game = new Memory(newGame)
+    this.position.appendChild(game)
   }
 }
 
