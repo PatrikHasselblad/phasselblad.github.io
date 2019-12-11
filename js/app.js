@@ -4,7 +4,7 @@
  * @version 1.0
  */
 
-import './desktop.js'
+import './Desktop.js'
 // import { memory } from './memory.js'
 // import { NewMemory } from './NewMemory.js'
 

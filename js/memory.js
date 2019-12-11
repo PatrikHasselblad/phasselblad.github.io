@@ -4,108 +4,118 @@
  * @version 1.0
  */
 
+const template = document.createElement('template')
+template.innerHTML = `
+ <div class="memoryApp">
+    <a href="#"><img src="/image/0.png" alt="A memory brick"></a>
+ </div>
+ `
+
 /**
-* Function to initialize a new Memory game.
+* Constructs a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
 */
-
 class Memory extends window.HTMLElement {
- constructor (newMemory) {
-   super ()
+  constructor (newGame) {
+    super()
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+    // this.playMemory(newGame)
+  }
 
-  const rows = newMemory.rows
-  const cols = newMemory.cols
-  const tiles = getPictureArray(rows, cols)
-  let pairs = 0
-  let tries = 0
-  let turn1 = null
-  let turn2 = null
-  let lastTile = null
-  const container = document.querySelector('#memoryBox')
-  // const template = document.querySelectorAll('#memoryApp')[0].content.firstElementChild
+  playMemory (newGame) {
+    console.log(newGame)
+    this.rows = newGame.rows
+    this.cols = newGame.cols
+    const tiles = this.getPictureArray()
+    this.pairs = 0
+    this.tries = 0
+    this.turn1 = null
+    this.turn2 = null
+    this.lastTile = null
+    const container = document.querySelector('#content')
+    const position = document.querySelectorAll('#memoryBox')[0] // .content.firstElementChild
 
-  tiles.forEach(function (tile, index) {
-    const a = document.createElement('a') // .importNode(template, true)
-    container.appendChild(a)
+    tiles.forEach(function (tile, index) {
+      const a = document.importNode(position, true)
+      container.appendChild(a)
 
-    a.addEventListener('click', function (event) {
-      event.preventDefault()
-      const img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
-      turnBrick(tile, img)
+      a.addEventListener('click', function (event) {
+        event.preventDefault()
+        const img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
+        this.turnBrick(tile, img)
+      })
+      if ((index + 1) % this.cols === 0) {
+        container.appendChild(document.createElement('br'))
+      }
     })
-    if ((index + 1) % cols === 0) {
-      container.appendChild(document.createElement('br'))
-    }
-  })
-}
+  }
 
-turnBrick (tile, img) {
-    if (turn2) {
+  turnBrick (tile, img) {
+    if (this.turn2) {
       return
     }
     img.src = '../image/' + tile + '.png'
 
-    if (!turn1) {
-      turn1 = img
-      lastTile = tile
+    if (!this.turn1) {
+      this.turn1 = img
+      this.lastTile = tile
     } else {
-      if (img === turn1) {
+      if (img === this.turn1) {
         return
       }
-      tries += 1
-      turn2 = img
+      this.tries += 1
+      this.turn2 = img
 
-      if (tile === lastTile) {
-        pairs += 1
+      if (tile === this.lastTile) {
+        this.pairs += 1
 
-        if (pairs === (cols * rows) / 2) {
-          console.log('You won with ' + tries + ' number of tries.')
+        if (this.pairs === (this.cols * this.rows) / 2) {
+          console.log('You won with ' + this.tries + ' number of tries.')
         }
 
         window.setTimeout(function () {
-          turn1.parentNode.classList.add('removed')
-          turn2.parentNode.classList.add('removed')
+          this.turn1.parentNode.classList.add('removed')
+          this.turn2.parentNode.classList.add('removed')
 
-          turn1 = null
-          turn2 = null
+          this.turn1 = null
+          this.turn2 = null
         }, 300)
       } else {
         window.setTimeout(function () {
-          turn1.src = '../image/0.png'
-          turn2.src = '../image/0.png'
+          this.turn1.src = '../image/0.png'
+          this.turn2.src = '../image/0.png'
 
-          turn1 = null
-          turn2 = null
+          this.turn1 = null
+          this.turn2 = null
         }, 500)
       }
     }
   }
-}
 
-/**
+  /**
  * Function to create and shuffle an array to be used in the memory game.
  * @param {Number} rows - Number of rows.
  * @param {Number} cols - Number of columns.
  */
-getPictureArray (rows, cols) {
-  const pictureArray = []
+  getPictureArray () {
+    const pictureArray = []
 
-  // Add 2 of each card
-  for (let i = 1; i <= (rows * cols) / 2; i++) {
-    pictureArray.push(i)
-    pictureArray.push(i)
+    // Add 2 of each card
+    for (let i = 1; i <= (this.rows * this.cols) / 2; i++) {
+      pictureArray.push(i)
+      pictureArray.push(i)
+    }
+    // Shuffler
+    for (let i = pictureArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      const temp = pictureArray[i]
+      pictureArray[i] = pictureArray[j]
+      pictureArray[j] = temp
+    }
+    return pictureArray
   }
-  // Shuffler
-  for (let i = pictureArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    const temp = pictureArray[i]
-    pictureArray[i] = pictureArray[j]
-    pictureArray[j] = temp
-  }
-  return pictureArray
-}
 }
 
-export { memory }
+window.customElements.define('memory-app', Memory)
+export { Memory }
