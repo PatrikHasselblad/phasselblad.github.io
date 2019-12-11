@@ -4,12 +4,13 @@
  * @version 1.0
  */
 
-import { memory } from './memory.js'
-import { NewMemory } from './NewMemory.js'
+import './desktop.js'
+// import { memory } from './memory.js'
+// import { NewMemory } from './NewMemory.js'
 
 // Detta ska ju köras med hjälp av eventlistener.
-const newMemory = new NewMemory(4, 4, '#content') // Container är bara tillfällig... den ska vara en custom E.
-memory(newMemory)
+// const newGame = new NewMemory(2, 2) // Container är bara tillfällig... den ska vara en custom E.
+// memory(newGame)
 
 // Från denna modul laddar jag skrivbordet, alltså desktop.js.
 

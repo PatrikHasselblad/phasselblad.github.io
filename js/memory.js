@@ -8,7 +8,13 @@
 * Function to initialize a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
 */
-export function memory (newMemory) {
+
+class Memory extends window.HTMLElement {
+ constructor (newMemory) {
+   super ()
+    this.attachShadow({ mode: 'open' })
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
+
   const rows = newMemory.rows
   const cols = newMemory.cols
   const tiles = getPictureArray(rows, cols)
@@ -17,14 +23,14 @@ export function memory (newMemory) {
   let turn1 = null
   let turn2 = null
   let lastTile = null
-  const container = document.querySelector('#content')
-  const template = document.querySelectorAll('#memoryBox')[0].content.firstElementChild
+  const container = document.querySelector('#memoryBox')
+  // const template = document.querySelectorAll('#memoryApp')[0].content.firstElementChild
 
   tiles.forEach(function (tile, index) {
-    const aTag = document.importNode(template, true)
-    container.appendChild(aTag)
+    const a = document.createElement('a') // .importNode(template, true)
+    container.appendChild(a)
 
-    aTag.addEventListener('click', function (event) {
+    a.addEventListener('click', function (event) {
       event.preventDefault()
       const img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
       turnBrick(tile, img)
@@ -33,8 +39,9 @@ export function memory (newMemory) {
       container.appendChild(document.createElement('br'))
     }
   })
+}
 
-  function turnBrick (tile, img) {
+turnBrick (tile, img) {
     if (turn2) {
       return
     }
@@ -68,6 +75,9 @@ export function memory (newMemory) {
         window.setTimeout(function () {
           turn1.src = '../image/0.png'
           turn2.src = '../image/0.png'
+
+          turn1 = null
+          turn2 = null
         }, 500)
       }
     }
@@ -79,7 +89,7 @@ export function memory (newMemory) {
  * @param {Number} rows - Number of rows.
  * @param {Number} cols - Number of columns.
  */
-function getPictureArray (rows, cols) {
+getPictureArray (rows, cols) {
   const pictureArray = []
 
   // Add 2 of each card
@@ -96,3 +106,6 @@ function getPictureArray (rows, cols) {
   }
   return pictureArray
 }
+}
+
+export { memory }
