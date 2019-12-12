@@ -4,13 +4,12 @@
  * @version 1.0
  */
 
-const template = document.createElement('template')
-template.innerHTML = ` 
+/* const template = document.createElement('template')
+template.innerHTML = `
 <div class="memoryApp">
-    <a id="aLink" href="#"><img src="/image/0.png" alt="A memory brick"></a>
  </div>
  `
-
+ */
 /**
 * Constructs a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
@@ -22,13 +21,16 @@ class Memory extends window.HTMLElement {
 
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
-    const imgSize = this.shadowRoot.querySelector('.memoryApp a img')
-    imgSize.setAttribute('style', 'width: 70px;')
+    // const imgSize = this.shadowRoot.querySelector('.memoryApp a img')
+    // imgSize.setAttribute('style', 'width: 70px;')
     this.playMemory(newGame)
   }
 
   playMemory (newGame) {
-    console.log(newGame)
+    const newTemplate = document.querySelector('.contentBox')
+    const newPosition = newTemplate.content.cloneNode(true)
+    const memoryBox = newPosition.querySelector('#content')
+    console.log(memoryBox)
     this.rows = newGame.rows
     this.cols = newGame.cols
     const tiles = this.getPictureArray()
@@ -37,16 +39,15 @@ class Memory extends window.HTMLElement {
     this.turn1 = null
     this.turn2 = null
     this.lastTile = null
-    const memoryBox = document.querySelector('#content')
-    const container = this.shadowRoot.querySelector('.memoryApp')
-    console.log(container.nodeName)
-    const position = this.shadowRoot.querySelectorAll('.memoryApp a')[0] // .content.firstElementChild
+    // const memoryBox = document.querySelector(newPosition)
+    const container = document.querySelector('#memoryBox')
+    const position = newPosition.querySelectorAll('#content a')[0] // .content.firstElementChild
 
     console.log('cols' + this.cols)
 
     tiles.forEach((tile, index) => {
       const a = document.importNode(position, true)
-      memoryBox.appendChild(container.appendChild(a))
+      container.appendChild(a) // (container.appendChild(a))
       // container.appendChild(position)
       console.log(a)
 
