@@ -4,7 +4,7 @@
  * @version 1.0
  */
 
-import { NewMemory } from './NewMemory.js'
+// import { NewMemory } from './NewMemory.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -18,49 +18,41 @@ template.innerHTML = `
 */
 
 class Memory extends window.HTMLElement {
-  constructor () {
+  constructor (newGame) {
     super()
 
     this.attachShadow({ mode: 'open' })
-    // this.shadowRoot.appendChild(template.content.cloneNode(true))
-    // const imgSize = this.shadowRoot.querySelector('.memoryApp a img')
-    // imgSize.setAttribute('style', 'width: 70px;')
+    this.newPosition = this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.wrapper = document.querySelector('#memoryBox').appendChild(document.createElement('memory-app'))
+    // this.wrapper = document.querySelector('#memoryBox')
+    this.rows = newGame.rows
+    this.cols = newGame.cols
+    this.tiles = this.getPictureArray()
+    this.pairs = 0
+    this.tries = 0
+    this.turn1 = null
+    this.turn2 = null
+    this.lastTile = null
+    this.playMemory(newGame)
   }
 
   connectedCallback () {
-    const memoryBtn = document.querySelector('#memory')
-    this.newPosition = this.shadowRoot.appendChild(template.content.cloneNode(true))
-    this.wrapper = document.querySelector('.wrapper').appendChild(document.createElement('memory-app'))
+    /*     const memoryBtn = document.querySelector('#memory')
 
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
       const newGame = new NewMemory(2, 2)
       this.playMemory(newGame)
       // this.newBox = document.createElement('memory-app')
-    })
+    }) */
   }
 
   playMemory (newGame) {
-    console.log('fa', this.wrapper)
-
-    this.rows = newGame.rows
-    this.cols = newGame.cols
-    const tiles = this.getPictureArray()
-    this.pairs = 0
-    this.tries = 0
-    this.turn1 = null
-    this.turn2 = null
-    this.lastTile = null
-    // const container = document.querySelector('#memoryBox')
-
     const position = this.newPosition.querySelector('a') // .content // .firstElementChild
-    // const location = this.wrapper.appendChild(this.newBox)
 
-    console.log('cols' + this.cols)
-
-    tiles.forEach((tile, index) => {
+    this.tiles.forEach((tile, index) => {
       const a = document.importNode(position, true)
-      this.wrapper.appendChild(a) // (container.appendChild(a))
+      this.wrapper.appendChild(a)
 
       // console.log(container)
 

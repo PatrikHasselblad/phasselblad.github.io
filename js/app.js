@@ -4,9 +4,9 @@
  * @version 1.0
  */
 
-import './Memory.js'
+// import './Memory.js'
 // import { NewMemory } from './NewMemory.js'
-// import './Desktop.js'
+import './Desktop.js'
 // desktop()
 // Detta ska ju köras med hjälp av eventlistener.
 // const newGame = new NewMemory(2, 2) // Container är bara tillfällig... den ska vara en custom E.

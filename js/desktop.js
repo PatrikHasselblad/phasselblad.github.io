@@ -4,16 +4,26 @@
  * @version 1.0
  */
 
-// import { NewMemory } from './NewMemory.js'
-// import { Memory } from './Memory.js'
+import { NewMemory } from './NewMemory.js'
+import { Memory } from './Memory.js'
 
 /* const template1 = document.createElement('template')
 template1.innerHTML = `
  <div class="desktop">
  </div>
  `
+*/
+const memoryBtn = document.querySelector('#memory')
 
-class Desktop extends window.HTMLElement {
+memoryBtn.addEventListener('click', e => {
+  e.preventDefault()
+  const newGame = new NewMemory(2, 2)
+  const game = new Memory(newGame)
+  console.log(game)
+  // this.newBox = document.createElement('memory-app')
+})
+
+/* class Desktop extends window.HTMLElement {
   constructor () {
     super() */
 
