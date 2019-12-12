@@ -4,8 +4,8 @@
  * @version 1.0
  */
 
-import { NewMemory } from './NewMemory.js'
-import { Memory } from './Memory.js'
+// import { NewMemory } from './NewMemory.js'
+// import { Memory } from './Memory.js'
 
 /* const template1 = document.createElement('template')
 template1.innerHTML = `
@@ -24,15 +24,18 @@ class Desktop extends window.HTMLElement {
 // }
 
 // connectedCallback () {
-const memoryBtn = document.querySelector('#memory')
+// const memoryBtn = document.querySelector('#memory')
 
-// New memory game
-memoryBtn.addEventListener('click', e => {
-  e.preventDefault()
-  const newGame = new NewMemory(2, 2)
-  const game = new Memory(newGame)
-  console.log(game)
-})
+// // New memory game
+// memoryBtn.addEventListener('click', e => {
+//   e.preventDefault()
+//   const newGame = new NewMemory(2, 2)
+//   const game = new Memory(newGame)
+//   const wrapper = document.querySelector('.wrapper')
+//   const newBox = document.createElement('memory-app')
+//   wrapper.appendChild(newBox).appendChild(game)
+//   console.log(game)
+// })
 // }
 
 /*   playMemory () {

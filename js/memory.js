@@ -4,33 +4,52 @@
  * @version 1.0
  */
 
-/* const template = document.createElement('template')
+import { NewMemory } from './NewMemory.js'
+
+const template = document.createElement('template')
 template.innerHTML = `
-<div class="memoryApp">
- </div>
+    
+      <a id="aLink" href="#"><img src="/image/0.png" alt="A memory brick"></a>
+      
  `
- */
+// <div class="memoryApp"></div>
+
 /**
 * Constructs a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
 */
 
 class Memory extends window.HTMLElement {
-  constructor (newGame) {
+  constructor () {
     super()
 
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.appendChild(template.content.cloneNode(true))
+    // this.shadowRoot.appendChild(template.content.cloneNode(true))
     // const imgSize = this.shadowRoot.querySelector('.memoryApp a img')
     // imgSize.setAttribute('style', 'width: 70px;')
-    this.playMemory(newGame)
+  }
+
+  connectedCallback () {
+    const memoryBtn = document.querySelector('#memory')
+
+    memoryBtn.addEventListener('click', e => {
+      e.preventDefault()
+      const newGame = new NewMemory(2, 2)
+      this.playMemory(newGame)
+      this.wrapper = document.querySelector('.wrapper')
+      this.newBox = document.createElement('memory-app')
+    })
   }
 
   playMemory (newGame) {
-    const newTemplate = document.querySelector('.contentBox')
-    const newPosition = newTemplate.content.cloneNode(true)
-    const memoryBox = newPosition.querySelector('#content')
-    console.log(memoryBox)
+    // const newTemplate = document.querySelector('.contentBox')
+    const newPosition = template.content.cloneNode(true)
+    // const memoryBox = newPosition.querySelector('#content')
+
+    // const wrapper = document.querySelector('.wrapper')
+    // const newBox = document.createElement('memory-app')
+    // wrapper.appendChild(newBox)
+
     this.rows = newGame.rows
     this.cols = newGame.cols
     const tiles = this.getPictureArray()
@@ -39,17 +58,17 @@ class Memory extends window.HTMLElement {
     this.turn1 = null
     this.turn2 = null
     this.lastTile = null
-    // const memoryBox = document.querySelector(newPosition)
-    const container = document.querySelector('#memoryBox')
+    // const container = document.querySelector('#memoryBox')
     const position = newPosition.querySelectorAll('#content a')[0] // .content.firstElementChild
 
     console.log('cols' + this.cols)
 
     tiles.forEach((tile, index) => {
       const a = document.importNode(position, true)
-      container.appendChild(a) // (container.appendChild(a))
-      // container.appendChild(position)
-      console.log(a)
+      const place = document.querySelector('memory-app')
+      place.appendChild(a) // (container.appendChild(a))
+
+      // console.log(container)
 
       a.addEventListener('click', e => {
         e.preventDefault()
