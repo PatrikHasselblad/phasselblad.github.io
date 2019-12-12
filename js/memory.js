@@ -8,9 +8,7 @@ import { NewMemory } from './NewMemory.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
-    
       <a id="aLink" href="#"><img src="/image/0.png" alt="A memory brick"></a>
-      
  `
 // <div class="memoryApp"></div>
 
@@ -31,24 +29,19 @@ class Memory extends window.HTMLElement {
 
   connectedCallback () {
     const memoryBtn = document.querySelector('#memory')
+    this.newPosition = this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.wrapper = document.querySelector('.wrapper').appendChild(document.createElement('memory-app'))
 
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
       const newGame = new NewMemory(2, 2)
       this.playMemory(newGame)
-      this.wrapper = document.querySelector('.wrapper')
-      this.newBox = document.createElement('memory-app')
+      // this.newBox = document.createElement('memory-app')
     })
   }
 
   playMemory (newGame) {
-    // const newTemplate = document.querySelector('.contentBox')
-    const newPosition = template.content.cloneNode(true)
-    // const memoryBox = newPosition.querySelector('#content')
-
-    // const wrapper = document.querySelector('.wrapper')
-    // const newBox = document.createElement('memory-app')
-    // wrapper.appendChild(newBox)
+    console.log('fa', this.wrapper)
 
     this.rows = newGame.rows
     this.cols = newGame.cols
@@ -59,14 +52,15 @@ class Memory extends window.HTMLElement {
     this.turn2 = null
     this.lastTile = null
     // const container = document.querySelector('#memoryBox')
-    const position = newPosition.querySelectorAll('#content a')[0] // .content.firstElementChild
+
+    const position = this.newPosition.querySelector('a') // .content // .firstElementChild
+    // const location = this.wrapper.appendChild(this.newBox)
 
     console.log('cols' + this.cols)
 
     tiles.forEach((tile, index) => {
       const a = document.importNode(position, true)
-      const place = document.querySelector('memory-app')
-      place.appendChild(a) // (container.appendChild(a))
+      this.wrapper.appendChild(a) // (container.appendChild(a))
 
       // console.log(container)
 
@@ -76,7 +70,7 @@ class Memory extends window.HTMLElement {
         this.turnBrick(tile, img)
       })
       if ((index + 1) % newGame.cols === 0) {
-        memoryBox.appendChild(document.createElement('br'))
+        this.wrapper.appendChild(document.createElement('br'))
       }
     })
   }

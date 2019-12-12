@@ -18,24 +18,11 @@ class Desktop extends window.HTMLElement {
     super() */
 
 // function desktop () {
-// this.attachShadow({ mode: 'open' })
-// this.shadowRoot.appendChild(template1.content.cloneNode(true))
-// this.position = this.shadowRoot.querySelector('.desktop')
-// }
-
-// connectedCallback () {
-// const memoryBtn = document.querySelector('#memory')
-
-// // New memory game
-// memoryBtn.addEventListener('click', e => {
-//   e.preventDefault()
-//   const newGame = new NewMemory(2, 2)
-//   const game = new Memory(newGame)
+//   const game = new Memory()
+//   const location = document.createElement('memory-app')
 //   const wrapper = document.querySelector('.wrapper')
-//   const newBox = document.createElement('memory-app')
-//   wrapper.appendChild(newBox).appendChild(game)
-//   console.log(game)
-// })
+
+//   wrapper.appendChild(location).appendChild(game)
 // }
 
 /*   playMemory () {
