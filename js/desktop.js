@@ -7,37 +7,39 @@
 import { NewMemory } from './NewMemory.js'
 import { Memory } from './Memory.js'
 
-const template = document.createElement('template')
-template.innerHTML = `
+/* const template1 = document.createElement('template')
+template1.innerHTML = `
  <div class="desktop">
  </div>
  `
 
 class Desktop extends window.HTMLElement {
   constructor () {
-    super()
+    super() */
 
-    this.attachShadow({ mode: 'open' })
-    this.shadowRoot.appendChild(template.content.cloneNode(true))
-    this.position = this.shadowRoot.querySelector('.desktop')
-  }
+// function desktop () {
+// this.attachShadow({ mode: 'open' })
+// this.shadowRoot.appendChild(template1.content.cloneNode(true))
+// this.position = this.shadowRoot.querySelector('.desktop')
+// }
 
-  connectedCallback () {
-    const memoryBtn = document.querySelector('#memory')
+// connectedCallback () {
+const memoryBtn = document.querySelector('#memory')
 
-    // New memory game
-    memoryBtn.addEventListener('click', e => {
-      e.preventDefault()
-      this.playMemory()
-    })
-  }
+// New memory game
+memoryBtn.addEventListener('click', e => {
+  e.preventDefault()
+  const newGame = new NewMemory(2, 2)
+  const game = new Memory(newGame)
+  console.log(game)
+})
+// }
 
-  playMemory () {
+/*   playMemory () {
     const newGame = new NewMemory(2, 2)
     const game = new Memory(newGame)
-    this.position.appendChild(game)
-  }
-}
+    // this.position.appendChild(game)
+  } */
 
 // är är planen att jag ska styra upp alla appar, ladda dem helt enkelt.
 
@@ -46,5 +48,5 @@ class Desktop extends window.HTMLElement {
 // Men kom ihåg!!! Denna modul är bara ratten. Användaren clickar, denna modul fångar upp det och skickar till rätt metod.
 // Begränsa koden i modulerna. Bättre med fler moduler.
 
-window.customElements.define('desktop-app', Desktop)
-export { Desktop }
+// window.customElements.define('desktop-app', Desktop)
+// export { desktop }

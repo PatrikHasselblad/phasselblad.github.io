@@ -15,11 +15,15 @@ template.innerHTML = `
 * Constructs a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
 */
+
 class Memory extends window.HTMLElement {
   constructor (newGame) {
     super()
+
     this.attachShadow({ mode: 'open' })
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+    const imgSize = this.shadowRoot.querySelector('.memoryApp a img')
+    imgSize.setAttribute('style', 'width: 70px;')
     this.playMemory(newGame)
   }
 
@@ -33,24 +37,27 @@ class Memory extends window.HTMLElement {
     this.turn1 = null
     this.turn2 = null
     this.lastTile = null
-    const container = document.querySelector('#memoryBox')
-    const position = this.shadowRoot.querySelector('.memoryApp a') // .content.firstElementChild
-    // const position = document.querySelectorAll('.memoryApp')[0] // .content.firstElementChild
+    const memoryBox = document.querySelector('#content')
+    const container = this.shadowRoot.querySelector('.memoryApp')
+    console.log(container.nodeName)
+    const position = this.shadowRoot.querySelectorAll('.memoryApp a')[0] // .content.firstElementChild
+
     console.log('cols' + this.cols)
 
-    tiles.forEach(function (tile, index) {
+    tiles.forEach((tile, index) => {
       const a = document.importNode(position, true)
-      container.appendChild(a)
+      memoryBox.appendChild(container.appendChild(a))
+      // container.appendChild(position)
       console.log(a)
 
-      a.addEventListener('click', function (event) {
-        event.preventDefault()
-        const img = event.target.nodeName === 'IMG' ? event.target : event.target.firstElementChild
+      a.addEventListener('click', e => {
+        e.preventDefault()
+        const img = e.target.nodeName === 'IMG' ? e.target : e.target.firstElementChild
         this.turnBrick(tile, img)
       })
-    //  if ((index + 1) % this.cols === 0) {
-      //  container.appendChild(document.createElement('br'))
-      // }
+      if ((index + 1) % newGame.cols === 0) {
+        memoryBox.appendChild(document.createElement('br'))
+      }
     })
   }
 
@@ -77,7 +84,7 @@ class Memory extends window.HTMLElement {
           console.log('You won with ' + this.tries + ' number of tries.')
         }
 
-        window.setTimeout(function () {
+        window.setTimeout(() => {
           this.turn1.parentNode.classList.add('removed')
           this.turn2.parentNode.classList.add('removed')
 
@@ -85,7 +92,7 @@ class Memory extends window.HTMLElement {
           this.turn2 = null
         }, 300)
       } else {
-        window.setTimeout(function () {
+        window.setTimeout(() => {
           this.turn1.src = '../image/0.png'
           this.turn2.src = '../image/0.png'
 
