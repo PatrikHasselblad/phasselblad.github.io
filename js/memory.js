@@ -37,6 +37,14 @@ class Memory extends window.HTMLElement {
     super()
 
     this.attachShadow({ mode: 'open' })
+    const template1 = document.querySelector('#memoryBox')
+    this.shadowRoot.appendChild(template1.content.cloneNode(true))
+    this.temp = this.shadowRoot.querySelectorAll('.memBrick')[0]
+
+    // Set image size.
+    const imgStyle = document.createElement('style')
+    imgStyle.innerHTML = '.memBrick img {width: 70px;}'
+    this.shadowRoot.appendChild(imgStyle)
     // this.box = appendChild(document.querySelector('#memory'))
   }
 
@@ -60,21 +68,16 @@ class Memory extends window.HTMLElement {
   }
 
   playMemory () {
-    const template1 = document.querySelector('#memoryBox')
-    // const brick = .appendChild(template1.content.cloneNode(true))
-    const position = document.querySelector('#memory')
+    // const position = document.querySelector('#memory')
     // console.log(brick)
-    // Set image size.
-    const imgStyle = document.createElement('style')
-    imgStyle.innerHTML = '.memBrick img {width: 70px;}'
-    this.shadowRoot.appendChild(imgStyle)
 
-    const temp = document.querySelectorAll(template1)[0].content.firstElementChild
+    // .content.firstElementChild
+    // console.log(temp)
 
     this.tiles.forEach((tile, index) => {
-      const a = document.cloneNode(temp, true) // .appendChild(imgTemplate.content.cloneNode(true))
-      console.log('a', a)
-      position.appendChild(temp)
+      console.log('tiles', this.tiles)
+      const a = document.importNode(this.temp, true)
+      this.shadowRoot.appendChild(a)
 
       // console.log(container)
 
@@ -83,8 +86,9 @@ class Memory extends window.HTMLElement {
         const img = e.target.nodeName === 'IMG' ? e.target : e.target.firstElementChild
         this.turnBrick(tile, img)
       })
+
       if ((index + 1) % this.cols === 0) {
-        position.appendChild(document.createElement('br'))
+        this.shadowRoot.appendChild(document.createElement('br'))
       }
     })
   }
