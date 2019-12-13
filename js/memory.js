@@ -4,55 +4,77 @@
  * @version 1.0
  */
 
-// import { NewMemory } from './NewMemory.js'
+import { NewMemory } from './NewMemory.js'
 
-const template = document.createElement('template')
+/* const template = document.createElement('template')
 template.innerHTML = `
       <a id="aLink" href="#"><img src="/image/0.png" alt="A memory brick"></a>
- `
+ ` */
 // <div class="memoryApp"></div>
 
 /**
 * Constructs a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
 */
+const template = document.createElement('template')
+template.innerHTML = `
+<style>
+:host {
+  margin: 50px;
+  width: 250px;
+  height: 350px;
+  background-color: rgb(88, 87, 87);
+  border: 2px solid #000;
+  box-shadow: 10px 10px 10px;
+  /* display: block; */
+  float: left;
+}
+</style>
+`
 
 class Memory extends window.HTMLElement {
-  constructor (newGame) {
+  constructor () {
     super()
 
     this.attachShadow({ mode: 'open' })
-    this.newPosition = this.shadowRoot.appendChild(template.content.cloneNode(true))
-    this.wrapper = document.querySelector('#memoryBox').appendChild(document.createElement('memory-app'))
-    // this.wrapper = document.querySelector('#memoryBox')
-    this.rows = newGame.rows
-    this.cols = newGame.cols
-    this.tiles = this.getPictureArray()
-    this.pairs = 0
-    this.tries = 0
-    this.turn1 = null
-    this.turn2 = null
-    this.lastTile = null
-    this.playMemory(newGame)
+    // this.box = appendChild(document.querySelector('#memory'))
   }
 
   connectedCallback () {
-    /*     const memoryBtn = document.querySelector('#memory')
-
+    const memoryBtn = document.querySelector('#memorybtn')
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
+      this.shadowRoot.appendChild(template.content.cloneNode(true))
       const newGame = new NewMemory(2, 2)
-      this.playMemory(newGame)
-      // this.newBox = document.createElement('memory-app')
-    }) */
+      this.rows = newGame.rows
+      this.cols = newGame.cols
+      this.pairs = 0
+      this.tries = 0
+      this.turn1 = null
+      this.turn2 = null
+      this.lastTile = null
+      this.tiles = this.getPictureArray()
+      this.playMemory()
+      console.log(this.tiles)
+    })
   }
 
-  playMemory (newGame) {
-    const position = this.newPosition.querySelector('a') // .content // .firstElementChild
+  playMemory () {
+    const template1 = document.querySelector('#memoryBox')
+    // const brick = .appendChild(template1.content.cloneNode(true))
+    const position = document.querySelector('#memory')
+    // console.log(brick)
+    // Set image size.
+    const imgStyle = document.createElement('style')
+    imgStyle.innerHTML = '.memBrick img {width: 70px;}'
+    this.shadowRoot.appendChild(imgStyle)
+
+    const temp = document.querySelectorAll(template1)[0].content.firstElementChild
 
     this.tiles.forEach((tile, index) => {
-      const a = document.importNode(position, true)
-      this.wrapper.appendChild(a)
+      const a = document.cloneNode(temp, true) // .appendChild(imgTemplate.content.cloneNode(true))
+      console.log('a', a)
+      position.appendChild(temp)
 
       // console.log(container)
 
@@ -61,8 +83,8 @@ class Memory extends window.HTMLElement {
         const img = e.target.nodeName === 'IMG' ? e.target : e.target.firstElementChild
         this.turnBrick(tile, img)
       })
-      if ((index + 1) % newGame.cols === 0) {
-        this.wrapper.appendChild(document.createElement('br'))
+      if ((index + 1) % this.cols === 0) {
+        position.appendChild(document.createElement('br'))
       }
     })
   }
@@ -88,6 +110,9 @@ class Memory extends window.HTMLElement {
 
         if (this.pairs === (this.cols * this.rows) / 2) {
           console.log('You won with ' + this.tries + ' number of tries.')
+
+          const elem = document.querySelector('#memoryBox')
+          elem.remove()
         }
 
         window.setTimeout(() => {
@@ -108,6 +133,7 @@ class Memory extends window.HTMLElement {
       }
     }
   }
+  // }
 
   /**
  * Function to create and shuffle an array to be used in the memory game.
