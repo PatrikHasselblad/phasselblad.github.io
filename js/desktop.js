@@ -5,41 +5,15 @@
  */
 
 // import { NewMemory } from './NewMemory.js'
-// import { Memory } from './Memory.js'
+import { Memory } from './Memory.js'
 
-/* const template1 = document.createElement('template')
-template1.innerHTML = `
- <div class="desktop">
- </div>
- `
-*/
-// const memoryBtn = document.querySelector('#memory')
+// LÄGG TILL ETT STORLEKSVAL SOM STARTAR MEMORYT, MEMORY KNAPPEN SKA STARTAS FRÅN DESKTOP. MÅSTE ÄVEN ANVÄNDA new SÅ DET BLIR EN NY RUTA VARJE GÅNG.
+const memButton = document.querySelector('#memorybtn')
 
-// memoryBtn.addEventListener('click', e => {
-//   e.preventDefault()
-//   const newGame = new NewMemory(2, 2)
-//   const game = new Memory(newGame)
-// Memory(newGame)
-// this.newBox = document.createElement('memory-app')
-// })
-
-/* class Desktop extends window.HTMLElement {
-  constructor () {
-    super() */
-
-// function desktop () {
-//   const game = new Memory()
-//   const location = document.createElement('memory-app')
-//   const wrapper = document.querySelector('.wrapper')
-
-//   wrapper.appendChild(location).appendChild(game)
-// }
-
-/*   playMemory () {
-    const newGame = new NewMemory(2, 2)
-    const game = new Memory(newGame)
-    // this.position.appendChild(game)
-  } */
+memButton.addEventListener('click', e => {
+  e.preventDefault()
+  const game = new Memory()
+})
 
 // är är planen att jag ska styra upp alla appar, ladda dem helt enkelt.
 

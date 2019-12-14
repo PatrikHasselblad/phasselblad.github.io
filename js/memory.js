@@ -16,6 +16,7 @@ template.innerHTML = `
 * Constructs a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
 */
+
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
@@ -35,7 +36,6 @@ template.innerHTML = `
 class Memory extends window.HTMLElement {
   constructor () {
     super()
-
     this.attachShadow({ mode: 'open' })
     const template1 = document.querySelector('#memoryBox')
     this.shadowRoot.appendChild(template1.content.cloneNode(true))
@@ -43,15 +43,15 @@ class Memory extends window.HTMLElement {
 
     // Set image size.
     const imgStyle = document.createElement('style')
-    imgStyle.innerHTML = '.memBrick img {width: 70px;}'
+    imgStyle.innerHTML = '.memBrick img {max-width: 70px;}'
     this.shadowRoot.appendChild(imgStyle)
-    // this.box = appendChild(document.querySelector('#memory'))
   }
 
   connectedCallback () {
     const memoryBtn = document.querySelector('#memorybtn')
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
+
       this.shadowRoot.appendChild(template.content.cloneNode(true))
       const newGame = new NewMemory(2, 2)
       this.rows = newGame.rows
@@ -63,7 +63,6 @@ class Memory extends window.HTMLElement {
       this.lastTile = null
       this.tiles = this.getPictureArray()
       this.playMemory()
-      console.log(this.tiles)
     })
   }
 
@@ -75,7 +74,6 @@ class Memory extends window.HTMLElement {
     // console.log(temp)
 
     this.tiles.forEach((tile, index) => {
-      console.log('tiles', this.tiles)
       const a = document.importNode(this.temp, true)
       this.shadowRoot.appendChild(a)
 
@@ -97,7 +95,11 @@ class Memory extends window.HTMLElement {
     if (this.turn2) {
       return
     }
+    const memBrick = this.shadowRoot.querySelector('.memBrick')
     img.src = '../image/' + tile + '.png'
+    img.id = 'img' + tile
+    // memBrick.id = 'img' + tile
+    console.log(memBrick)
 
     if (!this.turn1) {
       this.turn1 = img
@@ -114,14 +116,22 @@ class Memory extends window.HTMLElement {
 
         if (this.pairs === (this.cols * this.rows) / 2) {
           console.log('You won with ' + this.tries + ' number of tries.')
+          this.gameOver()
 
-          const elem = document.querySelector('#memoryBox')
-          elem.remove()
+          // Should remove the box ------------------- doesn't really work
+          /* const elem = this.shadowRoot.querySelectorAll('.memBrick')
+          console.log(elem)
+          for (let i = 0; i < elem.length; i++) {
+            elem.remove() */
+          // }
         }
 
         window.setTimeout(() => {
-          this.turn1.parentNode.classList.add('removed')
-          this.turn2.parentNode.classList.add('removed')
+          // Hide found pairs
+          const bricks = this.turn1.id
+          const imgHide = document.createElement('style')
+          imgHide.innerHTML = `.memBrick #${bricks} {visibility: hidden;}`
+          this.shadowRoot.appendChild(imgHide)
 
           this.turn1 = null
           this.turn2 = null
@@ -161,7 +171,11 @@ class Memory extends window.HTMLElement {
     }
     return pictureArray
   }
-}
 
+  gameOver () {
+    console.log('Game Over!')
+    const game = new Memory()
+  }
+}
 window.customElements.define('memory-app', Memory)
 export { Memory }

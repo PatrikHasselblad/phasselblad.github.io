@@ -4,9 +4,11 @@
  * @version 1.0
  */
 
-import './Memory.js'
+// CUSTOM EVENTS -- dispatch events
+
+// import './Memory.js'
 // import { NewMemory } from './NewMemory.js'
-// import './Desktop.js'
+import './Desktop.js'
 // import './learnClock.js'
 // desktop()
 // Detta ska ju köras med hjälp av eventlistener.
