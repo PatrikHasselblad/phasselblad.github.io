@@ -16,54 +16,68 @@ template.innerHTML = `
 * Constructs a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
 */
+const boxMenu = document.createElement('template')
+boxMenu.innerHTML = `
+<template>
+<div id="topBar"></div>
+</template>
+`
 
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
 :host {
   margin: 50px;
-  width: 250px;
-  height: 350px;
+  min-width: 100px;
+  width: fit-content;  
+  height: fit-content;
   background-color: rgb(88, 87, 87);
   border: 2px solid #000;
   box-shadow: 10px 10px 10px;
-  /* display: block; */
+  display: block;
   float: left;
+}
+:host img {
+  width: 70px;
+  position: relative;
+  float: left;
+}
+:host #topBar {
+  width: 100%;
+  height: 20px;
+  background-color: #000;
 }
 </style>
 `
-
+// 250px; 350px
 class Memory extends window.HTMLElement {
   constructor () {
     super()
-    this.attachShadow({ mode: 'open' })
-    const template1 = document.querySelector('#memoryBox')
-    this.shadowRoot.appendChild(template1.content.cloneNode(true))
-    this.temp = this.shadowRoot.querySelectorAll('.memBrick')[0]
 
-    // Set image size.
-    const imgStyle = document.createElement('style')
-    imgStyle.innerHTML = '.memBrick img {max-width: 70px;}'
-    this.shadowRoot.appendChild(imgStyle)
-  }
-
-  connectedCallback () {
     const memoryBtn = document.querySelector('#memorybtn')
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
-
-      this.shadowRoot.appendChild(template.content.cloneNode(true))
-      const newGame = new NewMemory(2, 2)
-      this.rows = newGame.rows
-      this.cols = newGame.cols
-      this.pairs = 0
-      this.tries = 0
-      this.turn1 = null
-      this.turn2 = null
-      this.lastTile = null
-      this.tiles = this.getPictureArray()
       this.playMemory()
     })
+  }
+
+  connectedCallback () {
+    this.attachShadow({ mode: 'open' })
+    this.template1 = document.querySelector('#memoryBox')
+    this.shadowRoot.appendChild(this.template1.content.cloneNode(true))
+    this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
+    // this.temp = this.shadowRoot.querySelectorAll('.memBrick')[0]
+
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
+    const newGame = new NewMemory(2, 2)
+    this.rows = newGame.rows
+    this.cols = newGame.cols
+    this.pairs = 0
+    this.tries = 0
+    this.turn1 = null
+    this.turn2 = null
+    this.lastTile = null
+    this.tiles = this.getPictureArray()
   }
 
   playMemory () {
@@ -73,8 +87,10 @@ class Memory extends window.HTMLElement {
     // .content.firstElementChild
     // console.log(temp)
 
+    console.log(this.temp)
     this.tiles.forEach((tile, index) => {
-      const a = document.importNode(this.temp, true)
+      // const a = document.importNode(this.temp, true)
+      const a = this.temp
       this.shadowRoot.appendChild(a)
 
       // console.log(container)
