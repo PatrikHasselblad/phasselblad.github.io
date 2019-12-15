@@ -25,9 +25,23 @@ class Desktop extends window.HTMLElement {
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
       this.shadowRoot.appendChild(new Memory())
+
+      /*       const closeMem = this.shadowRoot.querySelector('#topBar #closeBtn')
+      console.log('knapp', closeMem)
+      closeMem.addEventListener('click', event => {
+        event.preventDefault()
+        const location = this.shadowRoot.querySelector('memory-app').content
+        // console.log(location)
+        location.innerHTML = '{display: none;}'
+        // this.shadowRoot.appendChild(location)
+        this.shadowRoot.appendChild(location)
+      }) */
     })
   }
 }
+
+// const element = this.shadowRoot.querySelector('memory-app')
+// event = new DragEvent(element, 'mousedown')
 
 // är är planen att jag ska styra upp alla appar, ladda dem helt enkelt.
 

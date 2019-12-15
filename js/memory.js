@@ -17,7 +17,7 @@ import { NewMemory } from './NewMemory.js'
 
 const boxMenu = document.createElement('template')
 boxMenu.innerHTML = `
-<div id="topBar">
+<div id="topBar">Memory
 <button id="closeBtn">X</button>
 </div>
 `
@@ -26,19 +26,22 @@ const template = document.createElement('template')
 template.innerHTML = `
 <style>
 :host {
-  position: fixed;
+  position: absolute;
   margin: 50px;
   min-width: 150px;
   width: fit-content;  
   height: fit-content;
   background-color: rgb(88, 87, 87);
+  color: #ccc;
   border: 2px solid #000;
-  box-shadow: 10px 10px 10px;
+  box-shadow: 10px 10px 10px #000;
   display: block;
   float: left;
+  font-size: auto;
 }
 :host img {
   width: 70px;
+  height: 70px;
   position: relative;
   float: left;
 }
@@ -47,6 +50,8 @@ template.innerHTML = `
   width: 100%;
   height: 20px;
   background-color: #000;
+  color: #ccc;
+  text-align: center;
 }
 :host #topBar #closeBtn {
   float: right;
@@ -78,6 +83,15 @@ class Memory extends window.HTMLElement {
     this.turn1 = null
     this.turn2 = null
     this.lastTile = null
+
+    const closeMem = this.shadowRoot.querySelector('#closeBtn')
+    console.log(closeMem)
+    closeMem.addEventListener('click', e => {
+      // const location = this.shadowRoot.querySelector('memory-app')
+      // console.log(location)
+      // location.innerHTML = '{display: none;}'
+      // this.shadowRoot.appendChild(location)
+    })
   }
 
   initializeGame () {
@@ -219,7 +233,10 @@ class Memory extends window.HTMLElement {
 
   gameOver () {
     console.log('Game Over!')
-    // const game = new Memory()
+    const hTag = document.createElement('h4')
+    // const gameOver = 'You won after ' + this.tries + 'tries!'
+    hTag.innerText = 'You won after ' + this.tries + 'tries!'
+    this.shadowRoot.appendChild(hTag)
   }
 }
 window.customElements.define('memory-app', Memory)

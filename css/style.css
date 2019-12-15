@@ -11,7 +11,7 @@ head {
     background-image: url("../image/background.jpg");
     width: 100%;
     position: fixed;    /* Fix screen-size to actual screen-size. */
-    min-height: calc(100vh - 65px); /* Forces footer down. */
+    min-height: calc(100vh - 0px); /* Forces footer down. */
 }
 
 #content {
