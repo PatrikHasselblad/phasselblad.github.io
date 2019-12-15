@@ -6,25 +6,27 @@
 
 import { NewMemory } from './NewMemory.js'
 
-/* const template = document.createElement('template')
-template.innerHTML = `
-      <a id="aLink" href="#"><img src="/image/0.png" alt="A memory brick"></a>
- ` */
-// <div class="memoryApp"></div>
-
 /**
 * Constructs a new Memory game.
 * @param {Object} newMemory - Object with parameters of chosen game size.
 */
+// const memoBox = document.createElement('template')
+// memoBox.innerHTML = `
+//   <memory-app id="memory"></memory-app>
+// `
+
 const boxMenu = document.createElement('template')
 boxMenu.innerHTML = `
-<div id="topBar"></div>
+<div id="topBar">
+<button id="closeBtn">X</button>
+</div>
 `
 
 const template = document.createElement('template')
 template.innerHTML = `
 <style>
 :host {
+  position: fixed;
   margin: 50px;
   min-width: 150px;
   width: fit-content;  
@@ -41,11 +43,21 @@ template.innerHTML = `
   float: left;
 }
 :host #topBar {
+  position: relative;
   width: 100%;
   height: 20px;
   background-color: #000;
 }
-
+:host #topBar #closeBtn {
+  float: right;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  margin: 0;
+  font-size: auto;
+  font-weight: bold;
+  text-align: center;
+}
 :host button {
   width: 70px;
   height: 70px;
@@ -56,8 +68,23 @@ template.innerHTML = `
 class Memory extends window.HTMLElement {
   constructor () {
     super()
-
     this.attachShadow({ mode: 'open' })
+    this.initializeGame()
+  }
+
+  connectedCallback () {
+    this.pairs = 0
+    this.tries = 0
+    this.turn1 = null
+    this.turn2 = null
+    this.lastTile = null
+  }
+
+  initializeGame () {
+    // const margin = 20
+    // const imgHide = document.createElement('style')
+    // template.innerHTML = `.memBrick {margin: ${margin}px;}`
+
     this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
     this.temp = document.querySelectorAll('#memoryBox')[0].content.firstElementChild
 
@@ -68,7 +95,7 @@ class Memory extends window.HTMLElement {
     let size = 0
 
     // User defined game-size
-    for (let i = 2; i < 5; i++) {
+    for (let i = 2; i < 7; i += 2) {
       sizeButton.id = i
       sizeButton.innerText = (i + ' by ' + i)
       this.buttons = document.importNode(sizeButton, true)
@@ -80,25 +107,16 @@ class Memory extends window.HTMLElement {
         console.log(size)
 
         this.newGame = new NewMemory(size, size)
+        this.playMemory()
       })
     }
-
-    const memoryBtn = document.querySelector('#memorybtn')
-    memoryBtn.addEventListener('click', e => {
-      e.preventDefault()
-      this.playMemory()
-    })
-  }
-
-  connectedCallback () {
-    this.pairs = 0
-    this.tries = 0
-    this.turn1 = null
-    this.turn2 = null
-    this.lastTile = null
   }
 
   playMemory () {
+    const removeButtons = this.shadowRoot.querySelectorAll('.size')
+    for (let i = 0; i < removeButtons.length; i++) {
+      this.shadowRoot.removeChild(removeButtons[i])
+    }
     this.rows = this.newGame.rows
     this.cols = this.newGame.cols
     this.tiles = this.getPictureArray()
