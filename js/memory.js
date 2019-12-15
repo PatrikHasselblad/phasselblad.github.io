@@ -18,9 +18,7 @@ template.innerHTML = `
 */
 const boxMenu = document.createElement('template')
 boxMenu.innerHTML = `
-<template>
 <div id="topBar"></div>
-</template>
 `
 
 const template = document.createElement('template')
@@ -63,10 +61,11 @@ class Memory extends window.HTMLElement {
 
   connectedCallback () {
     this.attachShadow({ mode: 'open' })
-    this.template1 = document.querySelector('#memoryBox')
-    this.shadowRoot.appendChild(this.template1.content.cloneNode(true))
+    // this.template1 = document.querySelector('#memoryBox')
+    // this.shadowRoot.appendChild(this.template1.content.cloneNode(true))
     this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
-    // this.temp = this.shadowRoot.querySelectorAll('.memBrick')[0]
+    console.log(this.shadowRoot)
+    // this.temp = document.querySelectorAll('.memBrick')[0]
 
     this.shadowRoot.appendChild(template.content.cloneNode(true))
     const newGame = new NewMemory(2, 2)
@@ -87,13 +86,11 @@ class Memory extends window.HTMLElement {
     // .content.firstElementChild
     // console.log(temp)
 
-    console.log(this.temp)
+    this.temp = document.querySelectorAll('#memoryBox')[0].content.firstElementChild
+    console.log('sdf', this.temp)
     this.tiles.forEach((tile, index) => {
-      // const a = document.importNode(this.temp, true)
-      const a = this.temp
+      const a = document.importNode(this.temp, true)
       this.shadowRoot.appendChild(a)
-
-      // console.log(container)
 
       a.addEventListener('click', e => {
         e.preventDefault()
@@ -114,7 +111,6 @@ class Memory extends window.HTMLElement {
     const memBrick = this.shadowRoot.querySelector('.memBrick')
     img.src = '../image/' + tile + '.png'
     img.id = 'img' + tile
-    // memBrick.id = 'img' + tile
     console.log(memBrick)
 
     if (!this.turn1) {
