@@ -8,13 +8,13 @@
 import { Memory } from './Memory.js'
 
 // LÄGG TILL ETT STORLEKSVAL SOM STARTAR MEMORYT, MEMORY KNAPPEN SKA STARTAS FRÅN DESKTOP. MÅSTE ÄVEN ANVÄNDA new SÅ DET BLIR EN NY RUTA VARJE GÅNG.
-const memButton = document.querySelector('#memorybtn')
+// const memButton = document.querySelector('#memorybtn')
 
-memButton.addEventListener('click', e => {
+/* memButton.addEventListener('click', e => {
   e.preventDefault()
   const game = new Memory()
 })
-
+ */
 // är är planen att jag ska styra upp alla appar, ladda dem helt enkelt.
 
 // On icon click... new Memory(), new LearnClock(), new Chat() and launch., then jump to right module.
