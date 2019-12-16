@@ -21,10 +21,21 @@ class Desktop extends window.HTMLElement {
 
     this.attachShadow({ mode: 'open' })
 
+    // Initiates a new memory-game
     const memoryBtn = document.querySelector('#memorybtn')
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
       this.shadowRoot.appendChild(new Memory())
+    })
+    // Initiates a new chat-window
+    const chatBtn = document.querySelector('#chatbtn')
+    chatBtn.addEventListener('click', e => {
+      e.preventDefault()
+    })
+    // Initiates a new clock-exercise
+    const clockBtn = document.querySelector('#clockbtn')
+    clockBtn.addEventListener('clock', e => {
+      e.preventDefault()
     })
   }
 }
