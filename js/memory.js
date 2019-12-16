@@ -99,6 +99,8 @@ class Memory extends window.HTMLElement {
     })
   }
 
+  // You can still target links when finished. A BUG
+
   initializeGame () {
     // const margin = 20 -----------------------------------Attempts at moving new window 20px every time.
     // const imgHide = document.createElement('style')
@@ -179,7 +181,7 @@ class Memory extends window.HTMLElement {
           this.gameOver()
         }
 
-        window.setTimeout(() => {
+        window.setTimeout(() => { // ---------------------------Här ska vi lägga vis. på länken, inte bilden.
           // Hide found pairs
           const bricks = this.turn1.id
           const imgHide = document.createElement('style')

@@ -4,10 +4,15 @@
  * @version 1.0
  */
 
-// class MyComponent extends window.HTMLElement {
-//   connectedCallback () {
-//     this.innerHTML = '<h1>Hello World</h1'
-//   }
-// }
+class LearnClock extends window.HTMLElement {
+  constructor () {
+    super()
 
-// window.customElements.define('my-component', MyComponent)
+    this.attachShadow({ mode: 'open' })
+  }
+}
+
+window.customElements.define('learnclock-app', LearnClock)
+export { LearnClock }
+// Användaren ska kunna välja antalet övningar, alltså hur många gånger man behöver svara på olika klockslag.
+// Random tim, random min, gör om till enskilda heltal. Användaren ska svara 7.30, eller 07.30, kanske i separata rutor för tim å min.

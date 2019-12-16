@@ -4,8 +4,9 @@
  * @version 1.0
  */
 
-// import { NewMemory } from './NewMemory.js'
 import { Memory } from './Memory.js'
+import { Chat } from './Chat.js'
+import { LearnClock } from './learnClock.js'
 
 // LÄGG TILL ETT STORLEKSVAL SOM STARTAR MEMORYT, MEMORY KNAPPEN SKA STARTAS FRÅN DESKTOP. MÅSTE ÄVEN ANVÄNDA new SÅ DET BLIR EN NY RUTA VARJE GÅNG.
 // const memButton = document.querySelector('#memorybtn')
@@ -31,11 +32,15 @@ class Desktop extends window.HTMLElement {
     const chatBtn = document.querySelector('#chatbtn')
     chatBtn.addEventListener('click', e => {
       e.preventDefault()
+      this.shadowRoot.appendChild(new Chat())
+      console.log('Chat button working!')
     })
     // Initiates a new clock-exercise
     const clockBtn = document.querySelector('#clockbtn')
-    clockBtn.addEventListener('clock', e => {
+    clockBtn.addEventListener('click', e => {
       e.preventDefault()
+      this.shadowRoot.appendChild(new LearnClock())
+      console.log('Clock exercise button working!')
     })
   }
 }
