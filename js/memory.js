@@ -8,8 +8,10 @@ import { NewMemory } from './NewMemory.js'
 
 const boxMenu = document.createElement('template')
 boxMenu.innerHTML = `
-<div id="topBar">Memory
+<label>Memory</label>
+<div id="topBar">
 <button id="closeBtn">X</button>
+<button id="minBtn">-</button>
 </div>
 `
 
@@ -54,6 +56,16 @@ template.innerHTML = `
   font-size: auto;
   font-weight: bold;
   text-align: center;
+}
+  :host #topBar #minBtn {
+    float: right;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
 }
 :host button {
   width: 70px;
