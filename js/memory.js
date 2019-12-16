@@ -38,6 +38,7 @@ template.innerHTML = `
   display: block;
   float: left;
   font-size: auto;
+  text-align: center;
 }
 :host img {
   width: 70px;
@@ -87,15 +88,17 @@ class Memory extends window.HTMLElement {
     const closeMem = this.shadowRoot.querySelector('#closeBtn')
     console.log(closeMem)
     closeMem.addEventListener('click', e => {
-      // const location = this.shadowRoot.querySelector('memory-app')
-      // console.log(location)
-      // location.innerHTML = '{display: none;}'
+      const location = document.createElement('style')
+      location.innerHTML = 'memory-app {display: none;}'
       // this.shadowRoot.appendChild(location)
+      this.shadowRoot.append(location)
+
+      // this.shadowRoot.parentNode.innerHTML = location // .appendChild(location)
     })
   }
 
   initializeGame () {
-    // const margin = 20
+    // const margin = 20 -----------------------------------Attempts at moving new window 20px every time.
     // const imgHide = document.createElement('style')
     // template.innerHTML = `.memBrick {margin: ${margin}px;}`
 

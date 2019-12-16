@@ -26,9 +26,9 @@ class Desktop extends window.HTMLElement {
       e.preventDefault()
       this.shadowRoot.appendChild(new Memory())
 
-      /*       const closeMem = this.shadowRoot.querySelector('#topBar #closeBtn')
-      console.log('knapp', closeMem)
-      closeMem.addEventListener('click', event => {
+      const butt = this.shadowRoot.getElementById('#closeBtn')
+      console.log(butt)
+      /* closeMem.addEventListener('click', event => {
         event.preventDefault()
         const location = this.shadowRoot.querySelector('memory-app').content
         // console.log(location)
