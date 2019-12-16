@@ -1,21 +1,23 @@
 /**
  * @author ph222ue - Patrik Hasselblad
- * @module ./src/js/desktop.js
+ * @module ./src/js/Desktop.js
  * @version 1.0
  */
 
 import { Memory } from './Memory.js'
 import { Chat } from './Chat.js'
-import { LearnClock } from './learnClock.js'
+import { LearnClock } from './LearnClock.js'
 
-// LÄGG TILL ETT STORLEKSVAL SOM STARTAR MEMORYT, MEMORY KNAPPEN SKA STARTAS FRÅN DESKTOP. MÅSTE ÄVEN ANVÄNDA new SÅ DET BLIR EN NY RUTA VARJE GÅNG.
-// const memButton = document.querySelector('#memorybtn')
+// // Templates
+// const memoBox = document.createElement('template')
+// memoBox.innerHTML = `
+//   <memory-app id="memory"></memory-app>
+// `
 
-const memoBox = document.createElement('template')
-memoBox.innerHTML = `
-  <memory-app id="memory"></memory-app>
-`
-
+/**
+ * Class to listen and launch requested apps and handle global functions.
+ * @constructor Constructs a shadow DOM where new instances of apps are executed in their own sub-shadow DOM.
+ */
 class Desktop extends window.HTMLElement {
   constructor () {
     super()
@@ -56,4 +58,3 @@ class Desktop extends window.HTMLElement {
 // Begränsa koden i modulerna. Bättre med fler moduler.
 
 window.customElements.define('desktop-app', Desktop)
-// export { desktop }

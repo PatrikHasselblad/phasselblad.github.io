@@ -7,7 +7,6 @@
 // CUSTOM EVENTS -- dispatch events
 
 import './Desktop.js'
-// Detta ska ju köras med hjälp av eventlistener.
 
 // Från denna modul laddar jag skrivbordet, alltså desktop.js.
 

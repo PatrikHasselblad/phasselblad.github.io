@@ -1,11 +1,12 @@
 /**
  * @author ph222ue - Patrik Hasselblad
- * @module ./src/js/memory.js
+ * @module ./src/js/Memory.js
  * @version 1.0
  */
 
 import { NewMemory } from './NewMemory.js'
 
+// Templates
 const boxMenu = document.createElement('template')
 boxMenu.innerHTML = `
 <label>Memory</label>
@@ -75,8 +76,8 @@ template.innerHTML = `
 `
 
 /**
-* Constructs a new Memory game.
-* @param {Object} newMemory - Object with parameters of chosen game size.
+ * Class to handle a new memory game session.
+* @constructor - Constructs a new Memory game.
 */
 class Memory extends window.HTMLElement {
   constructor () {
@@ -101,6 +102,10 @@ class Memory extends window.HTMLElement {
 
   // You can still target links when finished. A BUG
 
+  /**
+   * Function to initialize game essentials.
+   * @param {Number} size - The size of the game.
+   */
   initializeGame () {
     // const margin = 20 -----------------------------------Attempts at moving new window 20px every time.
     // const imgHide = document.createElement('style')
@@ -131,6 +136,10 @@ class Memory extends window.HTMLElement {
     }
   }
 
+  /**
+   * Function to produce set amount of bricks and to listen for brick turns.
+   * @param {node} a - The clicked brick carrying a tile-number.
+   */
   playMemory () {
     const removeButtons = this.shadowRoot.querySelectorAll('.size')
     for (let i = 0; i < removeButtons.length; i++) {
@@ -156,6 +165,11 @@ class Memory extends window.HTMLElement {
     })
   }
 
+  /**
+   * Function to handle game logic.
+   * @param {Number} tile - Brick number.
+   * @param {String} img - image connected to tile number.
+   */
   turnBrick (tile, img) {
     if (this.turn2) {
       return
@@ -226,11 +240,15 @@ class Memory extends window.HTMLElement {
     return pictureArray
   }
 
+  /**
+   * Function to insert result in shadowroot element.
+   */
   gameOver () {
     const hTag = document.createElement('h4')
     hTag.innerText = 'You won after ' + this.tries + ' tries!'
     this.shadowRoot.appendChild(hTag)
   }
 }
+
 window.customElements.define('memory-app', Memory)
 export { Memory }
