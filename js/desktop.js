@@ -25,23 +25,11 @@ class Desktop extends window.HTMLElement {
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
       this.shadowRoot.appendChild(new Memory())
-
-      // closeMem.addEventListener('click', event => {
-      // event.preventDefault()
-      // const location = this.shadowRoot.querySelector(Memory.shadowRoot)
-      // console.log(location)
-
-      // // this.shadowRoot.appendChild(location)
-      // this.shadowRoot.removeChild(location)
     })
-    // })
   }
 }
 
-// const element = this.shadowRoot.querySelector('memory-app')
-// event = new DragEvent(element, 'mousedown')
-
-// är är planen att jag ska styra upp alla appar, ladda dem helt enkelt.
+// Här är planen att jag ska styra upp alla appar, ladda dem helt enkelt.
 
 // On icon click... new Memory(), new LearnClock(), new Chat() and launch., then jump to right module.
 

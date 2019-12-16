@@ -6,15 +6,6 @@
 
 import { NewMemory } from './NewMemory.js'
 
-/**
-* Constructs a new Memory game.
-* @param {Object} newMemory - Object with parameters of chosen game size.
-*/
-// const memoBox = document.createElement('template')
-// memoBox.innerHTML = `
-//   <memory-app id="memory"></memory-app>
-// `
-
 const boxMenu = document.createElement('template')
 boxMenu.innerHTML = `
 <div id="topBar">Memory
@@ -70,7 +61,11 @@ template.innerHTML = `
 }
 </style>
 `
-// 250px; 350px
+
+/**
+* Constructs a new Memory game.
+* @param {Object} newMemory - Object with parameters of chosen game size.
+*/
 class Memory extends window.HTMLElement {
   constructor () {
     super()
@@ -102,7 +97,6 @@ class Memory extends window.HTMLElement {
 
     this.shadowRoot.appendChild(template.content.cloneNode(true))
     const sizeButton = document.querySelectorAll('#sizeTemplate')[0].content.firstElementChild
-    console.log(sizeButton)
 
     let size = 0
 
@@ -116,7 +110,6 @@ class Memory extends window.HTMLElement {
       this.buttons.addEventListener('click', e => {
         e.preventDefault()
         size = e.target.id
-        console.log(size)
 
         this.newGame = new NewMemory(size, size)
         this.playMemory()
@@ -153,10 +146,9 @@ class Memory extends window.HTMLElement {
     if (this.turn2) {
       return
     }
-    const memBrick = this.shadowRoot.querySelector('.memBrick')
+    // const memBrick = this.shadowRoot.querySelector('.memBrick')
     img.src = '../image/' + tile + '.png'
     img.id = 'img' + tile
-    console.log(memBrick)
 
     if (!this.turn1) {
       this.turn1 = img
@@ -172,15 +164,7 @@ class Memory extends window.HTMLElement {
         this.pairs += 1
 
         if (this.pairs === (this.cols * this.rows) / 2) {
-          console.log('You won with ' + this.tries + ' number of tries.')
           this.gameOver()
-
-          // Should remove the box ------------------- doesn't really work
-          /* const elem = this.shadowRoot.querySelectorAll('.memBrick')
-          console.log(elem)
-          for (let i = 0; i < elem.length; i++) {
-            elem.remove() */
-          // }
         }
 
         window.setTimeout(() => {
@@ -204,12 +188,11 @@ class Memory extends window.HTMLElement {
       }
     }
   }
-  // }
 
   /**
  * Function to create and shuffle an array to be used in the memory game.
- * @param {Number} rows - Number of rows.
- * @param {Number} cols - Number of columns.
+ * @param {Number} this.rows - Number of rows.
+ * @param {Number} this.cols - Number of columns.
  */
   getPictureArray () {
     const pictureArray = []
@@ -230,10 +213,8 @@ class Memory extends window.HTMLElement {
   }
 
   gameOver () {
-    console.log('Game Over!')
     const hTag = document.createElement('h4')
-    // const gameOver = 'You won after ' + this.tries + 'tries!'
-    hTag.innerText = 'You won after ' + this.tries + 'tries!'
+    hTag.innerText = 'You won after ' + this.tries + ' tries!'
     this.shadowRoot.appendChild(hTag)
   }
 }
