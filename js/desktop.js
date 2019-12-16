@@ -26,17 +26,15 @@ class Desktop extends window.HTMLElement {
       e.preventDefault()
       this.shadowRoot.appendChild(new Memory())
 
-      const butt = this.shadowRoot.getElementById('#closeBtn')
-      console.log(butt)
-      /* closeMem.addEventListener('click', event => {
-        event.preventDefault()
-        const location = this.shadowRoot.querySelector('memory-app').content
-        // console.log(location)
-        location.innerHTML = '{display: none;}'
-        // this.shadowRoot.appendChild(location)
-        this.shadowRoot.appendChild(location)
-      }) */
+      // closeMem.addEventListener('click', event => {
+      // event.preventDefault()
+      // const location = this.shadowRoot.querySelector(Memory.shadowRoot)
+      // console.log(location)
+
+      // // this.shadowRoot.appendChild(location)
+      // this.shadowRoot.removeChild(location)
     })
+    // })
   }
 }
 

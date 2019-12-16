@@ -85,15 +85,10 @@ class Memory extends window.HTMLElement {
     this.turn2 = null
     this.lastTile = null
 
+    // Remove game-session
     const closeMem = this.shadowRoot.querySelector('#closeBtn')
-    console.log(closeMem)
     closeMem.addEventListener('click', e => {
-      const location = document.createElement('style')
-      location.innerHTML = 'memory-app {display: none;}'
-      // this.shadowRoot.appendChild(location)
-      this.shadowRoot.append(location)
-
-      // this.shadowRoot.parentNode.innerHTML = location // .appendChild(location)
+      this.remove(Memory)
     })
   }
 
