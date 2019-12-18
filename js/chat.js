@@ -26,11 +26,13 @@ const chatField = document.createElement('template')
 chatField.innerHTML = `
 <div id="chat"></div>
 `
-
+/**
+ * Constructs a new and independent chat window.
+ */
 class Chat extends window.HTMLElement {
   constructor () {
     super()
-
+    // -----------------Vid start, ladda upp den sparade historiken genom att loopa igenom arrayen och lägga en li på varje.
     this.attachShadow({ mode: 'open' })
     this.initializeChat()
   }
@@ -44,6 +46,9 @@ class Chat extends window.HTMLElement {
     })
   }
 
+  /**
+   * Function to initialize chat and add it to the shadow Dom.
+   */
   initializeChat () {
     this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
     this.shadowRoot.appendChild(template.content.cloneNode(true))
@@ -51,50 +56,61 @@ class Chat extends window.HTMLElement {
     this.shadowRoot.appendChild(chatField.content.cloneNode(true))
     this.shadowRoot.host.style.width = '300px'
     this.shadowRoot.host.style.height = '450px'
+    this.webSocket()
 
     // Movable window enabled.
     const box = this.shadowRoot.host
     draggableWindow(box)
+  }
 
+  /**
+   * Function to open websocket, send & recieve messages aswell as saving to local storage.
+   */
+  async webSocket () { // Vet inte om den behöver vara async, men det kan ju inte skada...
     // Send a message
     const sendBtn = this.shadowRoot.querySelector('#sendBtn')
     const textInput = this.shadowRoot.querySelector('#textfield')
 
     sendBtn.addEventListener('click', e => {
-      this.message = textInput.value
-      this.webSocket()
+      const data = {
+        type: 'message',
+        data: textInput.value,
+        username: 'Ost',
+        channel: 'my, not so secret, channel',
+        key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
+      }
+      this.socket.send(JSON.stringify(data))
+      textInput.value = ''
     })
-  }
 
-  async webSocket () {
     this.socket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/')
-    const data = {
-      type: 'message',
-      data: this.message,
-      username: 'PH',
-      channel: 'my, not so secret, channel',
-      key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
+
+    this.socket.onopen = async () => {
+      console.log('connected')
+    }
+    this.socket.onclose = () => {
+      console.error('disconnected')
+    }
+    this.socket.onerror = (error) => {
+      console.error('Failed to connect', error)
     }
 
-    this.socket.addEventListener('open', event => {
-      this.socket.send(JSON.stringify(data))
-    })
-    this.socket.addEventListener('message', event => {
-      if (event.data.type === 'message') {
-        console.log('test', event.data)
-      } else {
-        console.log('utan', event.data)
-        const returnMessage = JSON.parse(event.data)
-        if (returnMessage.type !== 'heartbeat') {
-          const position = this.shadowRoot.querySelector('#chat')
-          const pTag = document.createElement('p')
-          pTag.innerText = '<' + returnMessage.username + '> ' + returnMessage.data
-          position.appendChild(pTag)
-        }
+    this.socket.onmessage = (e) => {
+      // if (e.data.type === 'message') {
+      //   console.log('test', e.data)---------------------Spara varje svar på local storage, upp till ett passande antal.
+      // } else {
+      const returnMessage = JSON.parse(e.data)
+      if (returnMessage.type !== 'heartbeat') {
+        const position = this.shadowRoot.querySelector('#chat')
+        const liTag = document.createElement('li')
+        liTag.setAttribute('type', 'none')
+        liTag.innerText = '<' + returnMessage.username + '> ' + returnMessage.data
+        position.appendChild(liTag)
       }
-    })
+    }
   }
 }
+// }
 
 // någon som vill lägga ett meddelande i chatten? vill bara dubbelkolla så ena förbättringen funkar :smile:
 // tack, om det är någon av er som är "L" ^^

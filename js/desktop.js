@@ -25,6 +25,7 @@ class Desktop extends window.HTMLElement {
       this.shadowRoot.appendChild(new Memory())
     })
     // Initiates a new chat-window
+    // ------------------------- User should enter username, next go, app, check if username is empty from local storage, if not, just open a new.
     const chatBtn = document.querySelector('#chatbtn')
     chatBtn.addEventListener('click', e => {
       e.preventDefault()
