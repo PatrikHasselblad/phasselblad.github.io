@@ -29,14 +29,12 @@ class Desktop extends window.HTMLElement {
     chatBtn.addEventListener('click', e => {
       e.preventDefault()
       this.shadowRoot.appendChild(new Chat())
-      console.log('Chat button working!')
     })
     // Initiates a new clock-exercise
     const clockBtn = document.querySelector('#clockbtn')
     clockBtn.addEventListener('click', e => {
       e.preventDefault()
       this.shadowRoot.appendChild(new LearnClock())
-      console.log('Clock exercise button working!')
     })
   }
 }

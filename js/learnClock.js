@@ -9,7 +9,7 @@ import { template } from './utils.js'
 // Templates
 const boxMenu = document.createElement('template')
 boxMenu.innerHTML = `
-<label>Memory</label>
+<label>Clock</label>
 <div id="topBar">
 <button id="closeBtn">X</button>
 <button id="minBtn">-</button>
@@ -21,6 +21,20 @@ class LearnClock extends window.HTMLElement {
     super()
 
     this.attachShadow({ mode: 'open' })
+    this.initializeClock()
+  }
+
+  connectedCallback () {
+    // Remove game-session
+    const closeClock = this.shadowRoot.querySelector('#closeBtn')
+    closeClock.addEventListener('click', e => {
+      this.remove(LearnClock)
+    })
+  }
+
+  initializeClock () {
+    this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
   }
 }
 

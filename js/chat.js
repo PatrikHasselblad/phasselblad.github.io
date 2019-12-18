@@ -9,7 +9,7 @@ import { template } from './utils.js'
 // Templates
 const boxMenu = document.createElement('template')
 boxMenu.innerHTML = `
-<label>Memory</label>
+<label>Chat</label>
 <div id="topBar">
 <button id="closeBtn">X</button>
 <button id="minBtn">-</button>
@@ -21,6 +21,20 @@ class Chat extends window.HTMLElement {
     super()
 
     this.attachShadow({ mode: 'open' })
+    this.initializeChat()
+  }
+
+  connectedCallback () {
+    // Remove game-session
+    const closeChat = this.shadowRoot.querySelector('#closeBtn')
+    closeChat.addEventListener('click', e => {
+      this.remove(Chat)
+    })
+  }
+
+  initializeChat () {
+    this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
   }
 }
 
