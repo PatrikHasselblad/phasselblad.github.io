@@ -5,7 +5,7 @@
  */
 
 import { NewMemory } from './NewMemory.js'
-import { template } from './utils.js'
+import { template, draggableWindow } from './utils.js'
 
 // Templates
 const boxMenu = document.createElement('template')
@@ -117,6 +117,10 @@ class Memory extends window.HTMLElement {
 
     this.shadowRoot.appendChild(template.content.cloneNode(true))
     const sizeButton = document.querySelectorAll('#sizeTemplate')[0].content.firstElementChild
+
+    // Movable window.
+    const box = this.shadowRoot.host
+    draggableWindow(box)
 
     let size = 0
 

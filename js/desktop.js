@@ -7,16 +7,7 @@
 import { Memory } from './Memory.js'
 import { Chat } from './Chat.js'
 import { LearnClock } from './LearnClock.js'
-
-const template = document.createElement('template')
-template.innerHTML = `
-<style>
-:host #desktopApp {
-  width: 100%;
-  height: 100%;
-}
-<style>
-`
+import { draggableWindow } from './utils.js'
 
 /**
  * Class to listen and launch requested apps and handle global functions.
@@ -27,15 +18,12 @@ class Desktop extends window.HTMLElement {
     super()
 
     this.attachShadow({ mode: 'open' })
-    this.shadowRoot.appendChild(template.content.cloneNode(true))
 
     // Initiates a new memory-game
     const memoryBtn = document.querySelector('#memorybtn')
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
       this.shadowRoot.appendChild(new Memory())
-      const box = this.shadowRoot.querySelector('memory-app')
-      this.draggableWindow(box)
     })
     // Initiates a new chat-window
     const chatBtn = document.querySelector('#chatbtn')
@@ -43,7 +31,7 @@ class Desktop extends window.HTMLElement {
       e.preventDefault()
       this.shadowRoot.appendChild(new Chat())
       const box = this.shadowRoot.querySelector('chat-app')
-      this.draggableWindow(box)
+      draggableWindow(box)
     })
     // Initiates a new clock-exercise
     const clockBtn = document.querySelector('#clockbtn')
@@ -51,14 +39,14 @@ class Desktop extends window.HTMLElement {
       e.preventDefault()
       this.shadowRoot.appendChild(new LearnClock())
       const box = this.shadowRoot.querySelector('learnclock-app')
-      this.draggableWindow(box)
+      draggableWindow(box)
     })
   }
 
   connectedCallback () {
   }
 
-  draggableWindow (divBox) {
+  /*  draggableWindow (divBox) {
     const box = divBox
     // const container = document.querySelector('.wrapper')
 
@@ -116,7 +104,7 @@ class Desktop extends window.HTMLElement {
     function setTranslate (xPos, yPos, element) {
       element.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
     }
-  }
+  } */
 }
 
 // FÖR ATT FLYTTA FÖR VAR GÅNG MAN STARTAR EN NY APP SÅ FÅR VI NOG ANVÄNDA KOORDINATER. INTE MARGIN.
