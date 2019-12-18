@@ -158,6 +158,8 @@ class Chat extends window.HTMLElement {
 // LocalStorage sparar dubbelt osv, förstås när det är flera fönster öppna. Så kan vi inte ha det. Kolla upp cacha. Alternativt ha den någon annanstans.
 // Kanske lägga till tid på varje medelande tagg så att man vet när det skrevs. Det kan ju inte vara så svårt, lägga innan namnet
 // typ.
+// Kanske göra nån grej så att chatten alltid är öppen och registrerar medelanden, så att man även, offline, kan ta del av vad som skrivits när väl
+// internet funkar igen.
 
 window.customElements.define('chat-app', Chat)
 export { Chat }

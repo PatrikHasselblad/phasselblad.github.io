@@ -105,9 +105,9 @@ class LearnClock extends window.HTMLElement {
 
     function drawTime (ctx, radius) {
       const now = new Date()
-      let hour = now.getHours()
-      let minute = now.getMinutes()
-      let second = now.getSeconds()
+      let hour = now.getHours() // ---------------------Här sätter vi random. Tar bort setInterval, gör en string eller nåt som
+      let minute = now.getMinutes() // -----------------registrerar tiden, - sekund, sedan jämför vi svaret med strängen, om fel
+      let second = now.getSeconds() // -----------------'oj vad synd' och visar korrekt tid och svar, annars 'Bra jobbat å 1 poäng.
 
       hour = hour % 12
       hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) + (second * Math.PI / (360 * 60))
