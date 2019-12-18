@@ -51,23 +51,28 @@ class LearnClock extends window.HTMLElement {
 
     const canvas = this.shadowRoot.querySelector('#clockCanvas')
     const ctx = canvas.getContext('2d')
-    let grad
     let radius = canvas.height / 2
     ctx.translate(radius, radius)
     radius = radius * 0.90
-    // drawClock()
     setInterval(drawClock, 1000)
 
     /**
      * Function to draw clock cirles and add color to them.
      */
     function drawClock () {
+      drawFace(ctx, radius)
+      drawNumbers(ctx, radius)
+      drawTime(ctx, radius)
+    }
+
+    function drawFace (ctx, radius) {
+      ctx.beginPath()
       ctx.arc(0, 0, radius, 0, 2 * Math.PI)
       ctx.fillStyle = 'white'
       ctx.fill()
       canvas.append(ctx)
 
-      grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05)
+      const grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05)
       grad.addColorStop(0, '#333')
       grad.addColorStop(0.5, 'white')
       grad.addColorStop(1, '#333')
@@ -79,9 +84,9 @@ class LearnClock extends window.HTMLElement {
       ctx.arc(0, 0, radius * 0.1, 0, 2 * Math.PI)
       ctx.fillStyle = '#333'
       ctx.fill()
-      drawNumbers()
     }
-    function drawNumbers () {
+
+    function drawNumbers (ctx, radius) {
       ctx.font = radius * 0.15 + 'px arial'
       ctx.textBaseline = 'middle'
       ctx.textAlign = 'center'
@@ -96,9 +101,9 @@ class LearnClock extends window.HTMLElement {
         ctx.translate(0, radius * 0.85)
         ctx.rotate(-ang)
       }
-      drawTime()
     }
-    function drawTime () {
+
+    function drawTime (ctx, radius) {
       const now = new Date()
       let hour = now.getHours()
       let minute = now.getMinutes()
@@ -114,6 +119,7 @@ class LearnClock extends window.HTMLElement {
       second = (second * Math.PI / 30)
       drawHand(ctx, second, radius * 0.9, radius * 0.02)
     }
+
     function drawHand (ctx, pos, length, width) {
       ctx.beginPath()
       ctx.lineWidth = width
