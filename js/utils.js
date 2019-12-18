@@ -54,10 +54,33 @@ template.innerHTML = `
   width: 70px;
   height: 70px;
 }
+
+:host #chatField {
+    position: absolute;
+    bottom: 0px;
+    margin-bottom: 5px;
+    width: 280px;
+}
+:host #chat {
+    width: 296px;
+    height: 180px;
+    background-color: #ccc;
+    text-align: left;
+    margin: 2px;
+}
+:host #chatField input {
+    width: 75%;
+    margin-left: 12px;
+}
+:host #sendBtn {
+    width: 50px;
+    height: 21px;
+}
 </style>
 `
 
 export function draggableWindow (divBox) {
+// Code-sample influences taken nad modified from https://www.kirupa.com/html5/drag.htm.
   const box = divBox
   // const container = document.querySelector('.wrapper')
 
@@ -87,7 +110,6 @@ export function draggableWindow (divBox) {
     if (e.target === box) {
       active = true
     }
-    console.log(currentX, currentY)
   }
   function dragEnd (e) {
     initialX = currentX

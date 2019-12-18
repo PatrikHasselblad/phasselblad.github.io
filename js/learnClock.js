@@ -36,7 +36,7 @@ class LearnClock extends window.HTMLElement {
     this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
     this.shadowRoot.appendChild(template.content.cloneNode(true))
 
-    // Movable window.
+    // Movable window enabled.
     const box = this.shadowRoot.host
     draggableWindow(box)
   }

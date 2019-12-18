@@ -7,7 +7,6 @@
 import { Memory } from './Memory.js'
 import { Chat } from './Chat.js'
 import { LearnClock } from './LearnClock.js'
-import { draggableWindow } from './utils.js'
 
 /**
  * Class to listen and launch requested apps and handle global functions.
@@ -36,12 +35,11 @@ class Desktop extends window.HTMLElement {
     clockBtn.addEventListener('click', e => {
       e.preventDefault()
       this.shadowRoot.appendChild(new LearnClock())
-      const box = this.shadowRoot.querySelector('learnclock-app')
-      draggableWindow(box)
     })
   }
 
   connectedCallback () {
+    // Focus window here. I hope.
   }
 }
 

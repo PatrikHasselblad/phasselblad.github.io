@@ -15,6 +15,17 @@ boxMenu.innerHTML = `
 <button id="minBtn">-</button>
 </div>
 `
+const textField = document.createElement('template')
+textField.innerHTML = `
+<div id="chatField">
+<input type="text"></input>
+<button id="sendBtn">Send</button>
+</div>
+`
+const chatField = document.createElement('template')
+chatField.innerHTML = `
+<div id="chat"></div>
+`
 
 class Chat extends window.HTMLElement {
   constructor () {
@@ -35,8 +46,16 @@ class Chat extends window.HTMLElement {
   initializeChat () {
     this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.shadowRoot.appendChild(textField.content.cloneNode(true))
+    this.shadowRoot.appendChild(chatField.content.cloneNode(true))
+    this.shadowRoot.host.style.width = '300px'
+    this.shadowRoot.host.style.height = '250px'
 
-    // Movable window.
+    const pTag = document.createElement('p')
+    pTag.innerText = 'Hej hallå'
+    this.shadowRoot.appendChild(pTag)
+
+    // Movable window enabled.
     const box = this.shadowRoot.host
     draggableWindow(box)
   }
