@@ -4,6 +4,18 @@
  * @version 1.0
  */
 
+import { template } from './utils.js'
+
+// Templates
+const boxMenu = document.createElement('template')
+boxMenu.innerHTML = `
+<label>Memory</label>
+<div id="topBar">
+<button id="closeBtn">X</button>
+<button id="minBtn">-</button>
+</div>
+`
+
 class LearnClock extends window.HTMLElement {
   constructor () {
     super()

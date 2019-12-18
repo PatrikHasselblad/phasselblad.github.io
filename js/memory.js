@@ -5,6 +5,7 @@
  */
 
 import { NewMemory } from './NewMemory.js'
+import { template } from './utils.js'
 
 // Templates
 const boxMenu = document.createElement('template')
@@ -16,14 +17,14 @@ boxMenu.innerHTML = `
 </div>
 `
 
-const template = document.createElement('template')
+/* const template = document.createElement('template')
 template.innerHTML = `
 <style>
 :host {
   position: absolute;
   margin: 50px;
   min-width: 150px;
-  width: fit-content;  
+  width: fit-content;
   height: fit-content;
   background-color: rgb(88, 87, 87);
   color: #ccc;
@@ -73,7 +74,7 @@ template.innerHTML = `
   height: 70px;
 }
 </style>
-`
+` */
 
 /**
  * Class to handle a new memory game session.
