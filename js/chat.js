@@ -4,7 +4,7 @@
  * @version 1.0
  */
 
-import { template } from './utils.js'
+import { template, draggableWindow } from './utils.js'
 
 // Templates
 const boxMenu = document.createElement('template')
@@ -35,6 +35,10 @@ class Chat extends window.HTMLElement {
   initializeChat () {
     this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+
+    // Movable window.
+    const box = this.shadowRoot.host
+    draggableWindow(box)
   }
 }
 
