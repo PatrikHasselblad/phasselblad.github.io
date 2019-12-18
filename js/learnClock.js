@@ -15,6 +15,10 @@ boxMenu.innerHTML = `
 <button id="minBtn">-</button>
 </div>
 `
+const clockTemplate = document.createElement('template')
+clockTemplate.innerHTML = `
+<canvas id="clockCanvas" width="400" height="400"></canvas>
+`
 
 class LearnClock extends window.HTMLElement {
   constructor () {
@@ -32,13 +36,46 @@ class LearnClock extends window.HTMLElement {
     })
   }
 
+  /**
+   * Clock assembled with help from 'https://www.w3schools.com/graphics/canvas_clock.asp'
+   * Function to create a clock.
+   */
   initializeClock () {
     this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
     this.shadowRoot.appendChild(template.content.cloneNode(true))
+    this.shadowRoot.appendChild(clockTemplate.content.cloneNode(true))
 
     // Movable window enabled.
     const box = this.shadowRoot.host
     draggableWindow(box)
+
+    const canvas = this.shadowRoot.querySelector('#clockCanvas')
+    const ctx = canvas.getContext('2d')
+    let grad
+    let radius = canvas.height / 2
+    ctx.translate(radius, radius)
+    radius = radius * 0.90
+    drawClock()
+
+    function drawClock () {
+      ctx.arc(0, 0, radius, 0, 2 * Math.PI)
+      ctx.fillStyle = 'white'
+      ctx.fill()
+      canvas.append(ctx)
+
+      grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05)
+      grad.addColorStop(0, '#333')
+      grad.addColorStop(0.5, 'white')
+      grad.addColorStop(1, '#333')
+      ctx.strokeStyle = grad
+      ctx.lineWidth = radius * 0.1
+      ctx.stroke()
+
+      ctx.beginPath()
+      ctx.arc(0, 0, radius * 0.1, 0, 2 * Math.PI)
+      ctx.fillStyle = '#333'
+      ctx.fill()
+    }
   }
 }
 

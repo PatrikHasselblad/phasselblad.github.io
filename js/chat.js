@@ -36,7 +36,6 @@ class Chat extends window.HTMLElement {
     this.attachShadow({ mode: 'open' })
     this.initializeChat()
     this.user = user
-    console.log(this.user)
   }
 
   connectedCallback () {
@@ -62,6 +61,7 @@ class Chat extends window.HTMLElement {
     // Load chat-history if it is any.
     if (window.localStorage.getItem('history')) {
       const chatHistory = JSON.parse(window.localStorage.getItem('history'))
+      console.log(chatHistory.length)
       chatHistory.forEach(element => {
         const position = this.shadowRoot.querySelector('#chat')
         const liTag = document.createElement('li')
@@ -111,9 +111,6 @@ class Chat extends window.HTMLElement {
     }
 
     this.socket.onmessage = (e) => {
-      // if (e.data.type === 'message') {
-      //   console.log('test', e.data)---------------------Spara varje svar på local storage, upp till ett passande antal.
-      // } else {
       const returnMessage = JSON.parse(e.data)
       if (returnMessage.type !== 'heartbeat') {
         const position = this.shadowRoot.querySelector('#chat')
@@ -125,6 +122,10 @@ class Chat extends window.HTMLElement {
         // Save conversation to localStorage
         if (returnMessage.username !== 'The Server') {
           const existingData = JSON.parse(window.localStorage.getItem('history')) || []
+          console.log(existingData.length)
+          if (existingData.length === 50) {
+            existingData.shift()
+          }
           existingData.push(liTag.innerText)
           window.localStorage.setItem('history', JSON.stringify(existingData))
         }

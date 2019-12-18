@@ -88,6 +88,9 @@ template.innerHTML = `
     width: 50px;
     height: 21px;
 }
+:host #clockCanvas {
+  background-color: #333;
+}
 </style>
 `
 /**

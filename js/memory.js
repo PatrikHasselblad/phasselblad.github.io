@@ -157,7 +157,7 @@ class Memory extends window.HTMLElement {
 
           this.turn1 = null
           this.turn2 = null
-        }, 500)
+        }, 700)
       }
     }
   }
@@ -194,6 +194,10 @@ class Memory extends window.HTMLElement {
     this.shadowRoot.appendChild(hTag)
   }
 }
+
+// ATT GÖRA
+// Fixa buggen med länkarna som finns kvar när man tagit bort par.
+// Fixa så att man kan välja storlek själv, inom vissa gärnser.
 
 window.customElements.define('memory-app', Memory)
 export { Memory }
