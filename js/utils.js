@@ -98,9 +98,8 @@ template.innerHTML = `
  * @param {element} divBox - The box to be moved.
  */
 export function draggableWindow (divBox) {
-// Code-sample influences taken nad modified from https://www.kirupa.com/html5/drag.htm.
+// Code-sample influences taken and modified from 'https://www.kirupa.com/html5/drag.htm.'
   const box = divBox
-  // const container = document.querySelector('.wrapper')
 
   let active = false
   let currentX
@@ -137,7 +136,7 @@ export function draggableWindow (divBox) {
   }
   function drag (e) {
     if (active) {
-      // e.preventDefault()
+      // e.preventDefault() --------------------------------------------------------
 
       if (e.type === 'touchmove') {
         currentX = e.touches[0].clientX - initialX

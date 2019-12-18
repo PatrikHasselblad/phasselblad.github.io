@@ -86,6 +86,7 @@ class Chat extends window.HTMLElement {
     const sendBtn = this.shadowRoot.querySelector('#sendBtn')
     const textInput = this.shadowRoot.querySelector('#textfield')
 
+    // Submit-button submit.
     sendBtn.addEventListener('click', e => {
       const data = {
         type: 'message',
@@ -97,11 +98,27 @@ class Chat extends window.HTMLElement {
       this.socket.send(JSON.stringify(data))
       textInput.value = ''
     })
+    // Return-key submit.
+    textInput.addEventListener('keyup', (e) => {
+      if (e.keyCode === 13) {
+        const data = {
+          type: 'message',
+          data: textInput.value,
+          username: this.user,
+          channel: 'my, not so secret, channel',
+          key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
+        }
+        this.socket.send(JSON.stringify(data))
+        textInput.value = ''
+      }
+    })
 
     this.socket = new window.WebSocket('ws://vhost3.lnu.se:20080/socket/')
 
     this.socket.onopen = async () => {
       console.log('connected')
+      const position = this.shadowRoot.querySelector('#chat')
+      position.scrollTop = position.scrollHeight
     }
     this.socket.onclose = () => {
       console.error('disconnected')
@@ -118,6 +135,7 @@ class Chat extends window.HTMLElement {
         liTag.setAttribute('type', 'none')
         liTag.innerText = '<' + returnMessage.username + '> ' + returnMessage.data
         position.appendChild(liTag)
+        position.scrollTop = position.scrollHeight
 
         // Save conversation to localStorage
         if (returnMessage.username !== 'The Server') {
@@ -135,10 +153,11 @@ class Chat extends window.HTMLElement {
 }
 
 // Extra funktioner - byta namn, lägg till knapp bredvid förminska knappen, ett kugghjul, som öppnar username grejjan igen.
-// Local storage som sparar chat från tidigare. Enkelt enkelt.
+// Local storage som sparar chat från tidigare. Enkelt enkelt. -- Kanske byta till cache
 // Fixa en knapp som rensar historiken och skärmen.
-// Fixa även scrollen, den måste ju följa med senaste inlägget, nertill.
 // LocalStorage sparar dubbelt osv, förstås när det är flera fönster öppna. Så kan vi inte ha det. Kolla upp cacha. Alternativt ha den någon annanstans.
+// Kanske lägga till tid på varje medelande tagg så att man vet när det skrevs. Det kan ju inte vara så svårt, lägga innan namnet
+// typ.
 
 window.customElements.define('chat-app', Chat)
 export { Chat }
