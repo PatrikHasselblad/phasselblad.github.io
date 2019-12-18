@@ -29,7 +29,15 @@ class Desktop extends window.HTMLElement {
     const chatBtn = document.querySelector('#chatbtn')
     chatBtn.addEventListener('click', e => {
       e.preventDefault()
-      this.shadowRoot.appendChild(new Chat())
+
+      // Username check.
+      let username = JSON.parse(window.localStorage.getItem('user')) || []
+      console.log(username)
+      if (username.length === 0) {
+        username = this.setUsername()
+      } else {
+        this.shadowRoot.appendChild(new Chat(username))
+      }
     })
     // Initiates a new clock-exercise
     const clockBtn = document.querySelector('#clockbtn')
@@ -41,6 +49,23 @@ class Desktop extends window.HTMLElement {
 
   connectedCallback () {
     // Focus window here. I hope.
+  }
+
+  /**
+   * Function to set username and launch chat.
+   */
+  setUsername () {
+    document.querySelector('#username').classList.remove('hide')
+    const subBtn = document.querySelector('#userSubBtn')
+
+    subBtn.addEventListener('click', e => {
+      e.preventDefault()
+      const input = document.querySelector('#inputUser').value
+      const username = { username: input }
+      window.localStorage.setItem('user', JSON.stringify(input))
+      document.querySelector('#username').classList.add('hide')
+      this.shadowRoot.appendChild(new Chat(username))
+    })
   }
 }
 

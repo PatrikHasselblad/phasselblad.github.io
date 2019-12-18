@@ -8,6 +8,8 @@
 
 import './Desktop.js'
 
+document.querySelector('#username').classList.add('hide')
+
 // Från denna modul laddar jag skrivbordet, alltså desktop.js.
 
 /* Kolla upp om det går att gömma browserns meny, sökfält osv i ett popup fönster. Kolla också om det är tillåtet med popuppisar för att göra sin app.

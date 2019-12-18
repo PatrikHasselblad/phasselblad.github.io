@@ -30,11 +30,13 @@ chatField.innerHTML = `
  * Constructs a new and independent chat window.
  */
 class Chat extends window.HTMLElement {
-  constructor () {
+  constructor (user) {
     super()
     // -----------------Vid start, ladda upp den sparade historiken genom att loopa igenom arrayen och lägga en li på varje.
     this.attachShadow({ mode: 'open' })
     this.initializeChat()
+    this.user = user
+    console.log(this.user)
   }
 
   connectedCallback () {
@@ -75,7 +77,7 @@ class Chat extends window.HTMLElement {
       const data = {
         type: 'message',
         data: textInput.value,
-        username: 'Ost',
+        username: this.user,
         channel: 'my, not so secret, channel',
         key: 'eDBE76deU7L0H9mEBgxUKVR0VCnq0XBd'
       }
@@ -110,7 +112,6 @@ class Chat extends window.HTMLElement {
     }
   }
 }
-// }
 
 // någon som vill lägga ett meddelande i chatten? vill bara dubbelkolla så ena förbättringen funkar :smile:
 // tack, om det är någon av er som är "L" ^^
