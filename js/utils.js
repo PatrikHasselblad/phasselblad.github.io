@@ -1,3 +1,12 @@
+/**
+ * @author ph222ue - Patrik Hasselblad
+ * @module ./src/js/utils.js
+ * @version 1.0
+ */
+
+/**
+  * Style for the shadow-Dom elements.
+  */
 export const template = document.createElement('template')
 template.innerHTML = `
 <style>
@@ -81,7 +90,10 @@ template.innerHTML = `
 }
 </style>
 `
-
+/**
+ * Function to handle each div-box moveability.
+ * @param {element} divBox - The box to be moved.
+ */
 export function draggableWindow (divBox) {
 // Code-sample influences taken nad modified from https://www.kirupa.com/html5/drag.htm.
   const box = divBox

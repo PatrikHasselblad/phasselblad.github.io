@@ -23,5 +23,6 @@ Kanske byta "tema", meny å allt annat byter färger osv.
 *Custom elemnts skapas i respektive js fil. Memory i memory.js, learnClock i learnClock.js... inte i New eftersom det bara skapar en ny grund för ett nytt
 knapptryck på respektive ikon. Så att objekten kan fungera separat. Där finns en nöt att knäcka.
 *När man hovrar över ikonerna så tycker jag att vi ska förstora dem en smula, så som i demon. Det ser snyggt ut. Antagligen med eventlisteners.
+Fixa även så att man bara flyttar divvarna via baren, eller nåt sånt.
 
 */

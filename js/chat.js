@@ -58,6 +58,19 @@ class Chat extends window.HTMLElement {
     this.shadowRoot.appendChild(chatField.content.cloneNode(true))
     this.shadowRoot.host.style.width = '300px'
     this.shadowRoot.host.style.height = '450px'
+
+    // Load chat-history if it is any.
+    if (window.localStorage.getItem('history')) {
+      const chatHistory = JSON.parse(window.localStorage.getItem('history'))
+      chatHistory.forEach(element => {
+        const position = this.shadowRoot.querySelector('#chat')
+        const liTag = document.createElement('li')
+        liTag.setAttribute('type', 'none')
+        liTag.innerText = element
+        position.appendChild(liTag)
+      })
+    }
+
     this.webSocket()
 
     // Movable window enabled.
@@ -108,14 +121,23 @@ class Chat extends window.HTMLElement {
         liTag.setAttribute('type', 'none')
         liTag.innerText = '<' + returnMessage.username + '> ' + returnMessage.data
         position.appendChild(liTag)
+
+        // Save conversation to localStorage
+        if (returnMessage.username !== 'The Server') {
+          const existingData = JSON.parse(window.localStorage.getItem('history')) || []
+          existingData.push(liTag.innerText)
+          window.localStorage.setItem('history', JSON.stringify(existingData))
+        }
       }
     }
   }
 }
 
-// någon som vill lägga ett meddelande i chatten? vill bara dubbelkolla så ena förbättringen funkar :smile:
-// tack, om det är någon av er som är "L" ^^
-// visste inte att man kunde göra const messageTemplate = incomingMessageTemplate.content.cloneNode(true) messageTemplate.querySelector('#blabla') osv
+// Extra funktioner - byta namn, lägg till knapp bredvid förminska knappen, ett kugghjul, som öppnar username grejjan igen.
+// Local storage som sparar chat från tidigare. Enkelt enkelt.
+// Fixa en knapp som rensar historiken och skärmen.
+// Fixa även scrollen, den måste ju följa med senaste inlägget, nertill.
+// LocalStorage sparar dubbelt osv, förstås när det är flera fönster öppna. Så kan vi inte ha det. Kolla upp cacha. Alternativt ha den någon annanstans.
 
 window.customElements.define('chat-app', Chat)
 export { Chat }

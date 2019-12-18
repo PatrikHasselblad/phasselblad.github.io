@@ -31,10 +31,9 @@ class Desktop extends window.HTMLElement {
       e.preventDefault()
 
       // Username check.
-      let username = JSON.parse(window.localStorage.getItem('user')) || []
-      console.log(username)
-      if (username.length === 0) {
-        username = this.setUsername()
+      const username = JSON.parse(window.sessionStorage.getItem('user')) || ''
+      if (username === '') {
+        this.setUsername()
       } else {
         this.shadowRoot.appendChild(new Chat(username))
       }
@@ -61,8 +60,8 @@ class Desktop extends window.HTMLElement {
     subBtn.addEventListener('click', e => {
       e.preventDefault()
       const input = document.querySelector('#inputUser').value
-      const username = { username: input }
-      window.localStorage.setItem('user', JSON.stringify(input))
+      const username = input
+      window.sessionStorage.setItem('user', JSON.stringify(input))
       document.querySelector('#username').classList.add('hide')
       this.shadowRoot.appendChild(new Chat(username))
     })
