@@ -63,10 +63,13 @@ template.innerHTML = `
 }
 :host #chat {
     width: 296px;
-    height: 180px;
+    height: 360px;
     background-color: #ccc;
+    color: #000;
     text-align: left;
     margin: 2px;
+    overflow: scroll;
+    overflow-y: auto;
 }
 :host #chatField input {
     width: 75%;
