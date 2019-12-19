@@ -98,11 +98,12 @@ template.innerHTML = `
 :host #clockAnswerBtn {
     width: 50px;
     height: 21px;
-    margin-right: 5px;
+    margin-left: 20px;
+    padding: 0;
 }
 :host #hourIn, #minIn {
-  width: 20px;
-  margin-right: 3px;
+  width: 40px;
+  margin-right: 5px;
 }
 </style>
 `
