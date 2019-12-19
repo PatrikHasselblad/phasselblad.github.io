@@ -65,6 +65,14 @@ class LearnClock extends window.HTMLElement {
       drawTime(ctx, radius)
     }
 
+    function getX (ang) {
+      return Math.sin(ang + Math.PI)
+    }
+
+    function getY (ang) {
+      return Math.cos(ang + Math.PI)
+    }
+
     function drawFace (ctx, radius) {
       ctx.beginPath()
       ctx.arc(0, 0, radius, 0, 2 * Math.PI)
@@ -90,7 +98,6 @@ class LearnClock extends window.HTMLElement {
       ctx.font = radius * 0.15 + 'px arial'
       ctx.textBaseline = 'middle'
       ctx.textAlign = 'center'
-      const secondHandLength = 60
 
       for (let num = 1; num < 13; num++) {
         const ang = num * Math.PI / 6
@@ -103,21 +110,17 @@ class LearnClock extends window.HTMLElement {
         ctx.rotate(-ang)
       }
 
+      ctx.lineWidth = 5
+      ctx.strokeStyle = '#000000'
       for (let i = 0; i < 60; i++) {
-        const ang = (i - 3) * (Math.PI * 2) / 60
-        ctx.lineWidth = 1
-        ctx.beginPath()
-
-        const x1 = (canvas.width / 2) + Math.cos(ang) * (secondHandLength)
-        const y1 = (canvas.height / 2) + Math.sin(ang) * (secondHandLength)
-        const x2 = (canvas.width / 2) + Math.cos(ang) * (secondHandLength - (secondHandLength / 30))
-        const y2 = (canvas.height / 2) + Math.sin(ang) * (secondHandLength - (secondHandLength / 30))
-
-        ctx.moveTo(x1, y1)
-        ctx.lineTo(x2, y2)
-
-        ctx.strokeStyle = '#000'
-        ctx.stroke()
+        if (i % 5 !== 0) {
+          const x = getX(Math.PI / 30 * i)
+          const y = getY(Math.PI / 30 * i)
+          ctx.beginPath()
+          ctx.moveTo(x * 117, y * 117)
+          ctx.lineTo(x * 125, y * 125)
+          ctx.stroke()
+        }
       }
     }
 
