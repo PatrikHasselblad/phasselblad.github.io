@@ -22,8 +22,8 @@ clockTemplate.innerHTML = `
 const answerBarTemplate = document.createElement('template')
 answerBarTemplate.innerHTML = `
 <div id="answerBar">
-<label>Hour:&#32<input id="hourIn" type="number" maxlength="10" size="5"></label>
-<label>Min:&#32<input id="minIn" max="2" type="number" size="5"></label>
+<label>Hour:&#32<input id="hourIn" type="number"></label>
+<label>Min:&#32<input id="minIn" type="number"></label>
 <button id="clockAnswerBtn">Check</button>
 <p id="returnAnswer"></p>
 </div>
@@ -65,6 +65,7 @@ class LearnClock extends window.HTMLElement {
    */
   initializeClock () {
     const canvas = this.shadowRoot.querySelector('#clockCanvas')
+    const answerTag = this.shadowRoot.querySelector('#returnAnswer')
     const hourAnswer = this.shadowRoot.querySelector('#hourIn')
     const minAnswer = this.shadowRoot.querySelector('#minIn')
     const ctx = canvas.getContext('2d')
@@ -75,14 +76,19 @@ class LearnClock extends window.HTMLElement {
     let minute = 0
     let hourReal = 0
     let minReal = 0
+    let correctCounter = 0
+    let wrongCounter = 0
     drawClock(ctx, radius)
 
-    // Check if answer is correct and continues. -----------------------Also, add answer if it is correct. compare arrays perhaps, easier than strings, dont forget to remove zero's if any.
+    // Check if answer is correct and continues.
     const updateClock = this.shadowRoot.querySelector('#clockAnswerBtn')
     updateClock.addEventListener('click', e => {
       e.preventDefault()
       answerCheck()
       drawClock()
+      console.log('c' + correctCounter + ' W ' + wrongCounter)
+      hourAnswer.value = ''
+      minAnswer.value = ''
     })
 
     /**
@@ -187,7 +193,6 @@ class LearnClock extends window.HTMLElement {
       ctx.rotate(-pos)
     }
     function answerCheck () {
-      const answerTag = this.shadowRoot.querySelector('#returnAnswer')
       console.log(hourReal, minReal)
       let hour = hourAnswer.value
       let min = minAnswer.value
@@ -217,23 +222,19 @@ class LearnClock extends window.HTMLElement {
       }
 
       console.log('Klockan är ' + hour + ':' + min)
-      const correctTime = 'Korrekt svar skulle ha varit ' + newHour + ':' + newMin
+      const correctTime = 'Correct answer should have been ' + newHour + ':' + newMin
 
       if (hour === newHour && min === newMin) {
         console.log('Correct!')
         answerTag.innerText = 'Correct!'
-        returnAnswer(answerTag)
+        correctCounter++
+        return answerTag
       } else {
         console.log(correctTime)
+        wrongCounter++
         answerTag.innerText = correctTime
-        returnAnswer(answerTag)
+        return answerTag
       }
-      hourAnswer.value = ''
-      minAnswer.value = ''
-    }
-
-    function returnAnswer (answerTag) {
-      this.shadowRoot.appendChild(answerTag)
     }
   }
 }
