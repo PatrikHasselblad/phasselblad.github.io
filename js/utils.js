@@ -91,6 +91,19 @@ template.innerHTML = `
 :host #clockCanvas {
   background-color: #333;
 }
+:host #answerBar {
+  margin-top: 5px;
+  text-align: center;
+}
+:host #clockAnswerBtn {
+    width: 50px;
+    height: 21px;
+    margin-right: 5px;
+}
+:host #hourIn, #minIn {
+  width: 20px;
+  margin-right: 3px;
+}
 </style>
 `
 /**

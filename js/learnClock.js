@@ -19,12 +19,35 @@ const clockTemplate = document.createElement('template')
 clockTemplate.innerHTML = `
 <canvas id="clockCanvas" width="400" height="400"></canvas>
 `
+const answerBarTemplate = document.createElement('template')
+answerBarTemplate.innerHTML = `
+<div id="answerBar">
+<label>Hour:&#32<input id="hourIn" type="number" maxlength="10" size="5"></label>
+<label>Min:&#32<input id="minIn" max="2" type="number" size="5"></label>
+<button id="clockAnswerBtn">Check</button>
+<p id="returnAnswer"></p>
+</div>
+`
 
 class LearnClock extends window.HTMLElement {
   constructor () {
     super()
 
     this.attachShadow({ mode: 'open' })
+    this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
+    this.shadowRoot.appendChild(template.content.cloneNode(true))
+
+    const taskTag = document.createElement('h2')
+    taskTag.innerText = 'What time is it?'
+    this.shadowRoot.appendChild(taskTag)
+
+    this.shadowRoot.appendChild(clockTemplate.content.cloneNode(true))
+    this.shadowRoot.appendChild(answerBarTemplate.content.cloneNode(true))
+
+    // Movable window enabled.
+    const box = this.shadowRoot.host
+    draggableWindow(box)
+
     this.initializeClock()
   }
 
@@ -41,26 +64,24 @@ class LearnClock extends window.HTMLElement {
    * Function to create a clock.
    */
   initializeClock () {
-    this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
-    this.shadowRoot.appendChild(template.content.cloneNode(true))
-    this.shadowRoot.appendChild(clockTemplate.content.cloneNode(true))
-
-    // Movable window enabled.
-    const box = this.shadowRoot.host
-    draggableWindow(box)
-
     const canvas = this.shadowRoot.querySelector('#clockCanvas')
     const ctx = canvas.getContext('2d')
     let radius = canvas.height / 2
     ctx.translate(radius, radius)
     radius = radius * 0.90
-    setInterval(drawClock, 1000)
+    drawClock(ctx, radius)
 
+    // Check if answer is correct and continues. -----------------------Also, add answer if it is correct.
+    const updateClock = this.shadowRoot.querySelector('#clockAnswerBtn')
+    updateClock.addEventListener('click', e => {
+      e.preventDefault()
+      drawClock()
+    })
     /**
      * Function to draw clock cirles and add color to them.
      */
     function drawClock () {
-      drawFace(ctx, radius)
+      drawFace()
       drawNumbers(ctx, radius)
       drawTime(ctx, radius)
     }
@@ -73,7 +94,7 @@ class LearnClock extends window.HTMLElement {
       return Math.cos(ang + Math.PI)
     }
 
-    function drawFace (ctx, radius) {
+    function drawFace () {
       ctx.beginPath()
       ctx.arc(0, 0, radius, 0, 2 * Math.PI)
       ctx.fillStyle = 'white'
@@ -141,8 +162,8 @@ class LearnClock extends window.HTMLElement {
       minute = (minute * Math.PI / 30) // + (second * Math.PI / (30 * 60))
       drawHand(ctx, minute, radius * 0.8, radius * 0.07)
 
-      // second = (second * Math.PI / 30)
-      // drawHand(ctx, second, radius * 0.9, radius * 0.02)
+    // second = (second * Math.PI / 30)
+    // drawHand(ctx, second, radius * 0.9, radius * 0.02)
     }
 
     function drawHand (ctx, pos, length, width) {
