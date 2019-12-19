@@ -54,7 +54,7 @@ class LearnClock extends window.HTMLElement {
     let radius = canvas.height / 2
     ctx.translate(radius, radius)
     radius = radius * 0.90
-    setInterval(drawClock, 1000)
+    setInterval(drawClock, 10000)
 
     /**
      * Function to draw clock cirles and add color to them.
@@ -104,20 +104,24 @@ class LearnClock extends window.HTMLElement {
     }
 
     function drawTime (ctx, radius) {
-      const now = new Date()
+    /*  const now = new Date()
       let hour = now.getHours() // ---------------------Här sätter vi random. Tar bort setInterval, gör en string eller nåt som
       let minute = now.getMinutes() // -----------------registrerar tiden, - sekund, sedan jämför vi svaret med strängen, om fel
       let second = now.getSeconds() // -----------------'oj vad synd' och visar korrekt tid och svar, annars 'Bra jobbat å 1 poäng.
+      */
+      let hour = Math.floor(Math.random() * (13 - 1) + 1)
+      let minute = Math.floor(Math.random() * (60 - 1) + 1)
+      console.log('Tim: ' + hour + ' Min: ' + minute)
 
       hour = hour % 12
-      hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) + (second * Math.PI / (360 * 60))
+      hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) // + (second * Math.PI / (360 * 60))
       drawHand(ctx, hour, radius * 0.5, radius * 0.07)
 
-      minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60))
+      minute = (minute * Math.PI / 30) // + (second * Math.PI / (30 * 60))
       drawHand(ctx, minute, radius * 0.8, radius * 0.07)
 
-      second = (second * Math.PI / 30)
-      drawHand(ctx, second, radius * 0.9, radius * 0.02)
+      // second = (second * Math.PI / 30)
+      // drawHand(ctx, second, radius * 0.9, radius * 0.02)
     }
 
     function drawHand (ctx, pos, length, width) {

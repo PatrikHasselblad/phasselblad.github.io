@@ -201,7 +201,6 @@ class Memory extends window.HTMLElement {
 }
 
 // ATT GÖRA
-// Fixa buggen med länkarna som finns kvar när man tagit bort par.
 // Fixa så att man kan välja storlek själv, inom vissa gärnser.
 
 window.customElements.define('memory-app', Memory)
