@@ -119,12 +119,14 @@ class Memory extends window.HTMLElement {
     if (this.turn2) {
       return
     }
-    // const memBrick = this.shadowRoot.querySelector('.memBrick')
+    const memBrick = this.shadowRoot.querySelector('.memBrick')
     img.src = '../image/' + tile + '.png'
     img.id = 'img' + tile
+    memBrick.id = 'a' + tile
 
     if (!this.turn1) {
       this.turn1 = img
+
       this.lastTile = tile
     } else {
       if (img === this.turn1) {
@@ -142,9 +144,12 @@ class Memory extends window.HTMLElement {
 
         window.setTimeout(() => { // ---------------------------Här ska vi lägga vis. på länken, inte bilden.
           // Hide found pairs
-          const bricks = this.turn1.id
+          // const bricks = this.turn1.parentElement
           const imgHide = document.createElement('style')
-          imgHide.innerHTML = `.memBrick #${bricks} {visibility: hidden;}`
+          // imgHide.innerHTML = `.memBrick #${bricks} {visibility: hidden;}`
+          this.turn1.parentNode.style.visibility = 'hidden'
+          this.turn2.parentNode.style.visibility = 'hidden'
+
           this.shadowRoot.appendChild(imgHide)
 
           this.turn1 = null

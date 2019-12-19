@@ -136,7 +136,7 @@ export function draggableWindow (divBox) {
   }
   function drag (e) {
     if (active) {
-      // e.preventDefault() --------------------------------------------------------
+      // e.preventDefault() // --------------------------------------------Denna hjälpte lite mot buggen. Tror jag.
 
       if (e.type === 'touchmove') {
         currentX = e.touches[0].clientX - initialX

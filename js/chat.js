@@ -160,6 +160,7 @@ class Chat extends window.HTMLElement {
 // typ.
 // Kanske göra nån grej så att chatten alltid är öppen och registrerar medelanden, så att man även, offline, kan ta del av vad som skrivits när väl
 // internet funkar igen.
+// BUG - finns en när man tar mitt på rutan och flyttar den, då följer texten med på nå vis.
 
 window.customElements.define('chat-app', Chat)
 export { Chat }

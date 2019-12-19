@@ -25,7 +25,6 @@ class Desktop extends window.HTMLElement {
       this.shadowRoot.appendChild(new Memory())
     })
     // Initiates a new chat-window
-    // ------------------------- User should enter username, next go, app, check if username is empty from local storage, if not, just open a new.
     const chatBtn = document.querySelector('#chatbtn')
     chatBtn.addEventListener('click', e => {
       e.preventDefault()
@@ -56,7 +55,9 @@ class Desktop extends window.HTMLElement {
   setUsername () {
     document.querySelector('#username').classList.remove('hide')
     const subBtn = document.querySelector('#userSubBtn')
+    const input = document.querySelector('#inputUser')
 
+    // Submit-button submit.
     subBtn.addEventListener('click', e => {
       e.preventDefault()
       const input = document.querySelector('#inputUser').value
@@ -64,6 +65,18 @@ class Desktop extends window.HTMLElement {
       window.sessionStorage.setItem('user', JSON.stringify(input))
       document.querySelector('#username').classList.add('hide')
       this.shadowRoot.appendChild(new Chat(username))
+    })
+
+    // Return-key submit.
+    input.addEventListener('keyup', (e) => {
+      if (e.keyCode === 13) {
+        e.preventDefault()
+        const input = document.querySelector('#inputUser').value
+        const username = input
+        window.sessionStorage.setItem('user', JSON.stringify(input))
+        document.querySelector('#username').classList.add('hide')
+        this.shadowRoot.appendChild(new Chat(username))
+      }
     })
   }
 }
@@ -76,6 +89,5 @@ class Desktop extends window.HTMLElement {
 // On icon click... new Memory(), new LearnClock(), new Chat() and launch., then jump to right module.
 
 // Men kom ihåg!!! Denna modul är bara ratten. Användaren clickar, denna modul fångar upp det och skickar till rätt metod.
-// Begränsa koden i modulerna. Bättre med fler moduler.
 
 window.customElements.define('desktop-app', Desktop)
