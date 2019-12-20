@@ -32,14 +32,14 @@ chatField.innerHTML = `
 class Chat extends window.HTMLElement {
   constructor (user) {
     super()
-    // -----------------Vid start, ladda upp den sparade historiken genom att loopa igenom arrayen och lägga en li på varje.
+
     this.attachShadow({ mode: 'open' })
     this.initializeChat()
     this.user = user
   }
 
   connectedCallback () {
-    // Remove chat-session & close socket. ---------- Kanske fixa så att meddelanden spars. Hur som helst måste det finnas meddelande historik.
+    // Remove chat-session & close socket.
     const closeChat = this.shadowRoot.querySelector('#closeBtn')
     closeChat.addEventListener('click', e => {
       this.socket.close()
@@ -151,16 +151,6 @@ class Chat extends window.HTMLElement {
     }
   }
 }
-
-// Extra funktioner - byta namn, lägg till knapp bredvid förminska knappen, ett kugghjul, som öppnar username grejjan igen.
-// Local storage som sparar chat från tidigare. Enkelt enkelt. -- Kanske byta till cache
-// Fixa en knapp som rensar historiken och skärmen.
-// LocalStorage sparar dubbelt osv, förstås när det är flera fönster öppna. Så kan vi inte ha det. Kolla upp cacha. Alternativt ha den någon annanstans.
-// Kanske lägga till tid på varje medelande tagg så att man vet när det skrevs. Det kan ju inte vara så svårt, lägga innan namnet
-// typ.
-// Kanske göra nån grej så att chatten alltid är öppen och registrerar medelanden, så att man även, offline, kan ta del av vad som skrivits när väl
-// internet funkar igen.
-// BUG - finns en när man tar mitt på rutan och flyttar den, då följer texten med på nå vis.
 
 window.customElements.define('chat-app', Chat)
 export { Chat }

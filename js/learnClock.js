@@ -221,19 +221,19 @@ class LearnClock extends window.HTMLElement {
         newHour = ('0' + newHour)
       }
       if (newMin.length === 1) {
-        newMin = (newMin + '0')
+        newMin = ('0' + newMin)
       }
       if (hour.length === 1) {
         hour = ('0' + hour)
       }
       if (min.length === 1) {
-        min = (min + '0')
+        min = ('0' + min)
       }
 
-      const correctTime = 'Correct answer should have been ' + newHour + ':' + newMin
+      const correctTime = 'Wrong! Correct answer should have been ' + newHour + ':' + newMin
 
       if (hour === newHour && min === newMin) {
-        answerTag.innerText = 'Correct!'
+        answerTag.innerText = 'Correct! Good work!'
         correctCounter++
         return answerTag
       } else {
@@ -244,9 +244,6 @@ class LearnClock extends window.HTMLElement {
     }
   }
 }
-
-// Användaren ska kunna välja antalet övningar, alltså hur många gånger man behöver svara på olika klockslag.
-// Gör en scoreboard, alternativt skicka resultaten till lärarens mail. Kan även vara ett senare tillägg.
 
 window.customElements.define('learnclock-app', LearnClock)
 export { LearnClock }

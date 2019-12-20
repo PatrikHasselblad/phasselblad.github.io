@@ -81,13 +81,4 @@ class Desktop extends window.HTMLElement {
   }
 }
 
-// FÖR ATT FLYTTA FÖR VAR GÅNG MAN STARTAR EN NY APP SÅ FÅR VI NOG ANVÄNDA KOORDINATER. INTE MARGIN.
-// EXTRA FUNKTION KAN VARA ATT MINIMERA, MAN TAR BORT ALLT UNDER MENYRADEN, FLYTTAR SKITEN NER I HÖRNET, VID KLICK, ÅTERSTÄLL.
-
-// Här är planen att jag ska styra upp alla appar, ladda dem helt enkelt.
-
-// On icon click... new Memory(), new LearnClock(), new Chat() and launch., then jump to right module.
-
-// Men kom ihåg!!! Denna modul är bara ratten. Användaren clickar, denna modul fångar upp det och skickar till rätt metod.
-
 window.customElements.define('desktop-app', Desktop)

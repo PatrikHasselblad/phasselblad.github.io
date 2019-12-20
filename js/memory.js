@@ -41,17 +41,11 @@ class Memory extends window.HTMLElement {
     })
   }
 
-  // You can still target links when finished. A BUG
-
   /**
    * Function to initialize game essentials.
    * @param {Number} size - The size of the game.
    */
   initializeGame () {
-    // const margin = 20 -----------------------------------Attempts at moving new window 20px every time.
-    // const imgHide = document.createElement('style')
-    // template.innerHTML = `.memBrick {margin: ${margin}px;}`
-
     this.shadowRoot.appendChild(boxMenu.content.cloneNode(true))
     this.temp = document.querySelectorAll('#memoryBox')[0].content.firstElementChild
 
@@ -142,11 +136,9 @@ class Memory extends window.HTMLElement {
           this.gameOver()
         }
 
-        window.setTimeout(() => { // ---------------------------Här ska vi lägga vis. på länken, inte bilden.
+        window.setTimeout(() => {
           // Hide found pairs
-          // const bricks = this.turn1.parentElement
           const imgHide = document.createElement('style')
-          // imgHide.innerHTML = `.memBrick #${bricks} {visibility: hidden;}`
           this.turn1.parentNode.style.visibility = 'hidden'
           this.turn2.parentNode.style.visibility = 'hidden'
 
@@ -199,9 +191,6 @@ class Memory extends window.HTMLElement {
     this.shadowRoot.appendChild(hTag)
   }
 }
-
-// ATT GÖRA
-// Fixa så att man kan välja storlek själv, inom vissa gärnser.
 
 window.customElements.define('memory-app', Memory)
 export { Memory }
