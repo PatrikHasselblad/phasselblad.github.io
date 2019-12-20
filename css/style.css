@@ -25,6 +25,9 @@ head {
       overflow: hidden;
       border-radius: 7px;
       touch-action: none;
+      position: absolute;
+      /* min-height: calc(100vh - 0px); /* Forces footer down. */
+      height: 100vh;
 }
 
 #username {
@@ -64,8 +67,9 @@ footer {
     text-align: right;
     background-color: #000;
     background-image: url("../image/transFooter.png");
+    background-repeat: no-repeat;
     height: 65px;
-    width: 100%;
+    width: 100vw;
     border-top: 3px solid #000;
     clear: both;
     font-weight: bolder;

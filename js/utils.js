@@ -62,8 +62,13 @@ template.innerHTML = `
 :host button {
   width: 70px;
   height: 70px;
+  outline-width: 4px;
+  outline-color: #9300FF;
 }
-
+:host a {
+  outline-width: 4px;
+  outline-color: #9300FF;
+}
 :host #chatField {
     position: absolute;
     bottom: 0px;
@@ -114,6 +119,14 @@ template.innerHTML = `
 export function draggableWindow (divBox) {
 // Code-sample influences taken and modified from 'https://www.kirupa.com/html5/drag.htm.'
   const box = divBox
+  // const padding = 10
+  // let rect
+  // const viewport = {
+  //   bottom: 0,
+  //   left: 0,
+  //   right: 0,
+  //   top: 0
+  // }
 
   let active = false
   let currentX
@@ -132,6 +145,7 @@ export function draggableWindow (divBox) {
 
   function dragStart (e) {
     if (e.type === 'touchstart') {
+      layerPosition(box)
       initialX = e.touches[0].clientX - xOffset
       initialY = e.touches[0].clientY - yOffset
     } else {
@@ -143,6 +157,7 @@ export function draggableWindow (divBox) {
     }
   }
   function dragEnd (e) {
+    // removeLayer(box)
     initialX = currentX
     initialY = currentY
 
@@ -169,3 +184,10 @@ export function draggableWindow (divBox) {
     element.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
   }
 }
+
+function layerPosition (box) {
+
+}
+// function removeLayer (box) {
+//   box.style.zIndex = '0'
+// }

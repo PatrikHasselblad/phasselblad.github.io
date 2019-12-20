@@ -12,6 +12,9 @@ document.querySelector('#username').classList.add('hide')
 
 /*
 ATT GÖRA:
+--*LADDA NER LITE OLIKA WEB-LÄSARE OCH PRÖVA PROGRAMMET.
+--*MÅSTE KOLLA UPP OM DET FINNS NÅGOT BÄTTRE OCH SÄKRARE SÄTT ATT FLYTTA RUTOR PÅ. DEM BUGGAR SOM FAN OM MAN KLICKAR SOM EN PÅTÄND POTATIS.
+--*Fixa hut man flyttar, kanske med hjälp av en knapp, om top-baren fortsätter att vara avig. En passande ikon är ju en 4-vägs-pil.
 --*MÅSTE ORDNA SÅ ATT DEN AKTIVA RUTAN ALLTID ÄR ÖVERST. FOKUS PÅ RUTAN MAN KLICKAR PÅ.
 --*DET FINNS EN BUGG NÄR MAN FLYTTAR RUTORNA SNABBT.
 --*Se över eventlisteners, om man kan effektivisera detta.
@@ -47,8 +50,12 @@ Kanske byta "tema", meny å allt annat byter färger osv.
 --*Kanske göra nån grej så att chatten alltid är öppen och registrerar medelanden, så att man även, offline, kan ta del av vad som skrivits när väl
      internet funkar igen.
 --*Gör chatten finare. Den är ful.
+--*Gör något åt X-listen i fönstret, den vill man ju inte ha där. Skriver folk för långt måste det ju bli ett <enter> typ, jag tror appen redan gör det,
+    men värt att kolla upp.
 
 ---MEMORY---
+--*tID ÖVER? fIXA TYP, PIKNAPPAR, ELLER "WASD"-KNAPPARNA FÖR ATT RÖRA SIG RUNT.
+--*Jag vill ha en highscore!
 --*Fixa så att man kan välja storlek på brädan själv, inom givna intervaller.
 --*Kan va bra att behålla som mall för tillfället: imgHide.innerHTML = `.memBrick #${bricks} {visibility: hidden;}`
 --*Lägg lite margin på resultatet, det sitter typ i väggen av boxen.

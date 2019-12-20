@@ -51,7 +51,7 @@ class Memory extends window.HTMLElement {
 
     this.shadowRoot.appendChild(template.content.cloneNode(true))
     const sizeButton = document.querySelectorAll('#sizeTemplate')[0].content.firstElementChild
-
+    this.shadowRoot.host.style.zIndex = '0'
     // Movable window enabled.
     const box = this.shadowRoot.host
     draggableWindow(box)
