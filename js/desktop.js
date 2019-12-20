@@ -17,31 +17,51 @@ class Desktop extends window.HTMLElement {
     super()
 
     this.attachShadow({ mode: 'open' })
+    // Initial window margin
+    let windowMargin = 30
 
     // Initiates a new memory-game
     const memoryBtn = document.querySelector('#memorybtn')
     memoryBtn.addEventListener('click', e => {
       e.preventDefault()
-      this.shadowRoot.appendChild(new Memory())
+      if (windowMargin >= 500) {
+        windowMargin = 50
+      } else {
+        windowMargin += 20
+      }
+      const newMargin = windowMargin.toString()
+      this.shadowRoot.appendChild(new Memory()).style.margin = newMargin + 'px'
     })
     // Initiates a new chat-window
     const chatBtn = document.querySelector('#chatbtn')
     chatBtn.addEventListener('click', e => {
       e.preventDefault()
+      if (windowMargin >= 500) {
+        windowMargin = 45
+      } else {
+        windowMargin += 20
+      }
+      const newMargin = windowMargin.toString()
 
       // Username check.
       const username = JSON.parse(window.sessionStorage.getItem('user')) || ''
       if (username === '') {
-        this.setUsername()
+        this.setUsername(newMargin)
       } else {
-        this.shadowRoot.appendChild(new Chat(username))
+        this.shadowRoot.appendChild(new Chat(username)).style.margin = newMargin + 'px'
       }
     })
     // Initiates a new clock-exercise
     const clockBtn = document.querySelector('#clockbtn')
     clockBtn.addEventListener('click', e => {
       e.preventDefault()
-      this.shadowRoot.appendChild(new LearnClock())
+      if (windowMargin >= 500) {
+        windowMargin = 45
+      } else {
+        windowMargin += 20
+      }
+      const newMargin = windowMargin.toString()
+      this.shadowRoot.appendChild(new LearnClock()).style.margin = newMargin + 'px'
     })
   }
 
@@ -52,7 +72,7 @@ class Desktop extends window.HTMLElement {
   /**
    * Function to set username and launch chat.
    */
-  setUsername () {
+  setUsername (newMargin) {
     document.querySelector('#username').classList.remove('hide')
     const subBtn = document.querySelector('#userSubBtn')
     const input = document.querySelector('#inputUser')
@@ -64,7 +84,7 @@ class Desktop extends window.HTMLElement {
       const username = input
       window.sessionStorage.setItem('user', JSON.stringify(input))
       document.querySelector('#username').classList.add('hide')
-      this.shadowRoot.appendChild(new Chat(username))
+      this.shadowRoot.appendChild(new Chat(username)).style.margin = newMargin + 'px'
     })
 
     // Return-key submit.
@@ -75,7 +95,7 @@ class Desktop extends window.HTMLElement {
         const username = input
         window.sessionStorage.setItem('user', JSON.stringify(input))
         document.querySelector('#username').classList.add('hide')
-        this.shadowRoot.appendChild(new Chat(username))
+        this.shadowRoot.appendChild(new Chat(username)).style.margin = newMargin + 'px'
       }
     })
   }

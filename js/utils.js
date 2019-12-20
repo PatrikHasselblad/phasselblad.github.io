@@ -4,6 +4,8 @@
  * @version 1.0
  */
 
+// margin: 50px;
+
 /**
   * Style for the shadow-Dom elements.
   */
@@ -12,7 +14,6 @@ template.innerHTML = `
 <style>
 :host {
   position: absolute;
-  margin: 50px;
   min-width: 150px;
   width: fit-content;  
   height: fit-content;
@@ -24,6 +25,7 @@ template.innerHTML = `
   float: left;
   font-size: auto;
   text-align: center;
+  margin: 0;
 }
 :host img {
   width: 70px;
@@ -127,6 +129,7 @@ export function draggableWindow (divBox) {
   //   right: 0,
   //   top: 0
   // }
+  box.focus()
 
   let active = false
   let currentX
@@ -145,7 +148,6 @@ export function draggableWindow (divBox) {
 
   function dragStart (e) {
     if (e.type === 'touchstart') {
-      layerPosition(box)
       initialX = e.touches[0].clientX - xOffset
       initialY = e.touches[0].clientY - yOffset
     } else {
@@ -184,10 +186,3 @@ export function draggableWindow (divBox) {
     element.style.transform = 'translate3d(' + xPos + 'px, ' + yPos + 'px, 0)'
   }
 }
-
-function layerPosition (box) {
-
-}
-// function removeLayer (box) {
-//   box.style.zIndex = '0'
-// }
