@@ -121,14 +121,7 @@ template.innerHTML = `
 export function draggableWindow (divBox) {
 // Code-sample influences taken and modified from 'https://www.kirupa.com/html5/drag.htm.'
   const box = divBox
-  // const padding = 10
-  // let rect
-  // const viewport = {
-  //   bottom: 0,
-  //   left: 0,
-  //   right: 0,
-  //   top: 0
-  // }
+
   box.focus()
 
   let active = false

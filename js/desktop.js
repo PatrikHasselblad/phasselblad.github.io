@@ -19,6 +19,7 @@ class Desktop extends window.HTMLElement {
     this.attachShadow({ mode: 'open' })
     // Initial window margin
     let windowMargin = 30
+    // let zLayer = 0
 
     // Initiates a new memory-game
     const memoryBtn = document.querySelector('#memorybtn')
